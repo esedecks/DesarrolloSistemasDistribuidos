@@ -26,6 +26,7 @@ public class Servidor extends Thread{
             while(true){
                 Socket s = socketServidor.accept(); 
                 SQLConexion miConexion = new SQLConexion(s); 
+                System.err.println("Atendiendo una nueva conexión"); 
             }   
         }catch(Exception e){
             e.printStackTrace();

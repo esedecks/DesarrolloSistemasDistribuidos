@@ -28,15 +28,17 @@ public class SQLConexion extends Thread {
        }catch(Exception e){
            e.printStackTrace();
        }
+       this.start();
     }
 
     public void run(){
         try{
+            System.err.println("Esperando por consulta desde el hilo"); 
             consulta = entrada.readLine(); 
             System.out.println("Consulta a ejecutar "+consulta+" ;");
             ejecutarSQL(); 
         }catch(Exception ex){
-            ex.printStackTrace();; 
+            ex.printStackTrace(); 
             
         }finally{
             try{
@@ -52,11 +54,11 @@ public class SQLConexion extends Thread {
         ResultSet rs; 
         ResultSetMetaData resultadoMetadata; 
         boolean existenMasFilas; 
-        String driver = "com.mysql.jdc.Driver"; 
+        String driver = "com.mysql.jdbc.Driver"; 
         String usuario = "root"; 
         String clave ="1234";
         String registro; 
-        String URLBD = "jdbc:mysql://localhost:3306/test"; 
+        String URLBD = "jdbc:mysql://localhost:3306/banco"; 
         int numeroColumnas, i; 
         try{
             Class.forName(driver); 
@@ -71,14 +73,16 @@ public class SQLConexion extends Thread {
             resultadoMetadata = rs.getMetaData(); 
             numeroColumnas = resultadoMetadata.getColumnCount(); 
             System.out.println("Existe "+numeroColumnas);
+            registro = ""; 
             while(existenMasFilas){
-                registro =""; 
                 for(i =0; i<numeroColumnas; i++){
-                    registro = registro.concat(rs.getString(i) + " "); 
-                    salida.println(registro);
+                    registro = registro.concat(rs.getString(i+1) + " "); 
                 }
+                registro = registro.concat("\n"); 
                 existenMasFilas = rs.next(); 
             }
+            salida.println(registro);
+            salida.flush();
             con.close(); 
         }catch(Exception e){
             e.printStackTrace();
