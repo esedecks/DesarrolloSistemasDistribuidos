@@ -16,11 +16,18 @@ public class Cliente  {
         //Asociar flujos
         PrintWriter salida = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); 
         BufferedReader entrada = new BufferedReader(new InputStreamReader(s.getInputStream())); 
-        salida.println("select * from banco");
+     
+        String [] prueba1 = {"select * from banco",
+                            "insert into banco values(12, 'Mexico banco')", 
+                            "create table alumno(nombre varchar(30) not null)", 
+                            "dumb thing no sense"
+                
+                           }; 
+        salida.println(prueba1[3]);
         salida.flush();
-        String linea; 
+        String linea ; 
         while((linea = entrada.readLine())!=null){
-            System.err.println("Lee: "+linea);
+            System.err.println(linea);
         }
     
     }
