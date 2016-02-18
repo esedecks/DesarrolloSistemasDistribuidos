@@ -1,6 +1,4 @@
-
 package ejercicio2;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 

@@ -1,15 +1,8 @@
 
 package ejercicio2;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.Socket;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  *
@@ -20,7 +13,6 @@ public class SQLConexion extends Thread {
     protected BufferedReader  entrada ; 
     protected PrintStream salida ; 
     protected String consulta; 
-    
     public SQLConexion(Socket socketCliente){
        this.socketCliente = socketCliente; 
        try{
@@ -31,7 +23,6 @@ public class SQLConexion extends Thread {
        }
        this.start();
     }
-
     public void run(){
         try{
             System.err.println("Esperando por consulta desde el hilo"); 
@@ -39,8 +30,7 @@ public class SQLConexion extends Thread {
             System.out.println("Consulta a ejecutar "+consulta+" ;");
             ejecutarSQL(); 
         }catch(Exception ex){
-            ex.printStackTrace(); 
-            
+            ex.printStackTrace();   
         }finally{
             try{
                 socketCliente.close();
@@ -52,27 +42,20 @@ public class SQLConexion extends Thread {
     private void ejecutarSQL() {
         java.sql.Connection con; 
         Statement st ; 
-        ResultSet rs; 
-        ResultSetMetaData resultadoMetadata; 
-        boolean existenMasFilas; 
         String driver = "com.mysql.jdbc.Driver"; 
         String usuario = "root"; 
         String clave ="1234";
-        String registro; 
         String URLBD = "jdbc:mysql://localhost:3306/banco"; 
-        int numeroColumnas, i; 
         try{
             Class.forName(driver); 
             con = DriverManager.getConnection(URLBD, usuario, clave); 
             st = con.createStatement(); 
             //verificar la consulta 
             if(isLectura()){
-                //si es lectura es con select
-                ejecutarLectura(st);
-            }else{
-                // por tanto es una operación de escritura alter, create, insert
-                ejecutarEscritura(st);
+                    ejecutarLectura(st);
             }
+            else
+                ejecutarEscritura(st);
             con.close(); 
         }catch(Exception e){
             e.printStackTrace();
@@ -121,10 +104,10 @@ public class SQLConexion extends Thread {
                 }
                 registro = registro.concat("\n"); 
                 existenMasFilas = rs.next(); 
-            }
-            salida.print(registro);
-            salida.flush();
-    
+        }
+        salida.print(registro);
+        salida.flush();
+            
     }
     public void ejecutarEscritura(Statement st)throws SQLException{
         int i ; 
@@ -132,7 +115,4 @@ public class SQLConexion extends Thread {
         salida.print(consulta + "\nCódigo respuesta :"+valor);
         salida.flush();
     }
-   
-           
-    
 }
