@@ -7,6 +7,8 @@ package ejercicio2cliente;
 
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -16,8 +18,7 @@ import javax.swing.table.TableModel;
 public class MainFrame extends javax.swing.JFrame {
 
     Cliente cliente; 
-    TableModel modeloTabla; 
-   
+    DefaultTableModel tableModel = new DefaultTableModel();
     public MainFrame() {
         initComponents();
         try{
@@ -68,7 +69,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         lblConsulta.setText("Consulta: ");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Ejecutar Query");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -150,9 +151,18 @@ public class MainFrame extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
-         
+        if(respuesta.startsWith(completeQuery)){
+            JOptionPane.showMessageDialog(null, "La modificación fue hecha!");
+        }else if(respuesta.startsWith("No fue posible")){
+            JOptionPane.showMessageDialog(null, "No es posible ejecutar "+completeQuery);
+
+        }
+       else{
+            displayTabla(respuesta); 
+        }
         System.err.println("La respuesta es: "); 
         System.err.println(respuesta+"\nfin"); 
+        
     }//GEN-LAST:event_jButton1ActionPerformed
     private void displayTabla(String mensaje){
         if(mensaje.startsWith("No hay")){
@@ -160,8 +170,20 @@ public class MainFrame extends javax.swing.JFrame {
             return;   
         }
         //divir or lineas
-        String lineas = mensaje.split("\\r?\\n"); 
-        
+        String[] lineas = mensaje.split("\\r?\\n"); 
+        for(int i = 0; i<lineas.length; i++){
+            if(i==0){
+                String[] columnas = lineas[0].split("\\|"); 
+                for(String columna : columnas)
+                    this.tableModel.addColumn(columna);
+                continue; 
+            }
+            //PARA TODAS LAS DEMÁS LINEAS SOLO SE DIVE POR |
+            String[]  datosPorFila = lineas[i].split("\\|"); 
+            tableModel.addRow(datosPorFila);
+            
+        }
+        tblRelacion.setModel(tableModel);
     }
     /**
      * @param args the command line arguments

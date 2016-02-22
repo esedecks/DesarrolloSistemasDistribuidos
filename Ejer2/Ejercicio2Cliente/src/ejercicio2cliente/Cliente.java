@@ -30,7 +30,7 @@ public class Cliente  {
         StringBuilder sb = new StringBuilder(); 
         while((linea = entrada.readLine())!=null){
             sb.append(linea);
-            sb.append('\n'); 
+            sb.append("\r\n"); 
         }
              
         return sb.toString();

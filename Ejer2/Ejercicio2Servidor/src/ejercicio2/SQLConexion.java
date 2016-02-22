@@ -45,7 +45,7 @@ public class SQLConexion extends Thread {
         String driver = "com.mysql.jdbc.Driver"; 
         String usuario = "root"; 
         String clave ="1234";
-        String URLBD = "jdbc:mysql://localhost:3306/banco"; 
+        String URLBD = "jdbc:mysql://localhost:3306/world"; 
         try{
             Class.forName(driver); 
             con = DriverManager.getConnection(URLBD, usuario, clave); 
@@ -91,18 +91,18 @@ public class SQLConexion extends Thread {
         for(int j = 0; j<numeroColumnas; j++){
              String columna = resultadoMetadata.getColumnName(j+1); 
              sb.append(columna);
-             sb.append("\t"); 
+             sb.append("|"); 
          
         }
-        sb.append('\n'); 
+        sb.append("\r\n"); 
          
         salida.print(sb.toString()); 
         String registro = ""; 
         while(existenMasFilas){
                 for(i =0; i<numeroColumnas; i++){
-                    registro = registro.concat(rs.getString(i+1) + "\t"); 
+                    registro = registro.concat(rs.getString(i+1) + "|"); 
                 }
-                registro = registro.concat("\n"); 
+                registro = registro.concat("\r\n"); 
                 existenMasFilas = rs.next(); 
         }
         salida.print(registro);
