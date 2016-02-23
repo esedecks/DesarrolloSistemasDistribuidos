@@ -53,6 +53,19 @@ public class SQLConexion extends Thread {
             //verificar la consulta 
             if(isLectura()){
                     ejecutarLectura(st);
+            }else if(consulta.startsWith("use ")){
+               
+                System.err.println("Entra en use ------->>"); 
+                String bd = consulta.substring(consulta.indexOf(" ")); 
+                bd = bd.trim(); 
+                con.setCatalog(bd);
+                consulta = "show tables"; 
+                URLBD = "jdbc:mysql://localhost:3306/"+bd;
+                //Class.forName(driver); 
+                //
+                con = DriverManager.getConnection(URLBD, usuario, clave); 
+                st = con.createStatement();
+                ejecutarLectura(st);
             }
             else
                 ejecutarEscritura(st);
@@ -78,7 +91,6 @@ public class SQLConexion extends Thread {
         boolean existenMasFilas; 
         int i ; 
         ResultSet rs = st.executeQuery(consulta); 
-        
         existenMasFilas = rs.next(); 
         if(!existenMasFilas){
             salida.println("No hay más filas");

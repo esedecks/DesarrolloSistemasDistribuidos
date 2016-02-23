@@ -21,13 +21,9 @@ public class MainFrame extends javax.swing.JFrame {
     DefaultTableModel tableModel = new DefaultTableModel();
     public MainFrame() {
         initComponents();
-        try{
-            cliente = new Cliente();
-        }catch(UnknownHostException e){
-            System.err.println("No se puede conectar con el servidor"); 
-        }catch(Exception ex){
-            System.err.println("No se puede hacer la conexión"); 
-        }
+
+        cliente = new Cliente();
+      
          
     }
 
