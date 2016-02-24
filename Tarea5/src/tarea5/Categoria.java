@@ -33,6 +33,8 @@ public class Categoria {
     }
    
     public String toString(){
-        return "Termina"; 
+        return "idCategoria: "+this.categoria+"\n"+
+                "nombre: "+this.nombre+"\n"+
+                "rango: "+this.rango+"\n"; 
     }
 }

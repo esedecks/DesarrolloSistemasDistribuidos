@@ -5,24 +5,30 @@
  */
 package tarea5;
 
+import java.util.List;
+
 /**
  *
  * @author esedecks
  */
 public class Tarea5 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         CategoriaDAO cat = new CategoriaDAO(); 
+        
+        
         Categoria categoria = new Categoria();
-        
-        categoria.setNombre("Mosca");
-        categoria.setRango("51 - 100 kg");
         categoria.setCategoria(1);
-        
         cat.delete(categoria);
+         
+        //List lista = cat.readAll(); 
+        //for(int i = 0; i<lista.size(); i++)
+          // System.err.println(((Categoria)lista.get(i)).toString());  
+        
+        //Categoria c = cat.read(categoria); 
+        //System.err.println(c.toString());
+        
+        
+        //cat.update(categoria);
     }
     
 }

@@ -78,7 +78,7 @@ public class CategoriaDAO {
             ps.setInt(1, c.getCategoria()); 
             rs = ps.executeQuery(); 
             List resultado = obtenerRersultados(rs); 
-            if(resultado.size()>9){
+            if(resultado.size()>0){
                 return (Categoria)resultado.get(0); 
             }else{
                 return null; 
