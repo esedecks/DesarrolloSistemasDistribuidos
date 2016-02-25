@@ -5,11 +5,10 @@
  */
 package ejercicio2cliente;
 
-import java.net.UnknownHostException;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
+
 
 /**
  *
@@ -139,7 +138,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String completeQuery = txtConsulta.getText(); 
-        System.err.println("El query enviado es:; "+completeQuery);
+        System.err.println("El query enviado es: "+completeQuery);
         String respuesta = ""; 
         try{
             cliente.sendMessage(completeQuery);
@@ -156,8 +155,8 @@ public class MainFrame extends javax.swing.JFrame {
        else{
             displayTabla(respuesta); 
         }
-        System.err.println("La respuesta es: "); 
-        System.err.println(respuesta+"\nfin"); 
+        //System.err.println("La respuesta es: "); 
+        //System.err.println(respuesta+"\nfin"); 
         
     }//GEN-LAST:event_jButton1ActionPerformed
     private void displayTabla(String mensaje){

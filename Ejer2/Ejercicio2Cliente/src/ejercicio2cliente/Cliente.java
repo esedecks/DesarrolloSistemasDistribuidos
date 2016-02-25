@@ -21,14 +21,14 @@ public class Cliente  {
         this.manejador = manejador; 
     }
     public void sendMessage(String msj)throws UnknownHostException, IOException{
-        if(this.manejador.equals(manejadores[0])){
+      
             System.err.println("Enviando mensaje"); 
             s = new Socket(host, PORT); 
             salida = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); 
             entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));
             salida.println(msj);
             salida.flush();
-        }
+     
         
     }
     public String receiveMessage() throws IOException{
