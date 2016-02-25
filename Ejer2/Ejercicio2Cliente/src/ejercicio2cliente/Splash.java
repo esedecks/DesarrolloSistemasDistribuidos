@@ -1,5 +1,7 @@
 package ejercicio2cliente;
 
+import java.util.Random;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,17 +13,20 @@ package ejercicio2cliente;
  */
 public class Splash extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Splash
-     */
+    Thread hilo ;
+    Login l;
     public Splash() {
         initComponents();
+        btnSiguiente.setEnabled(false);
+        Task tarea = new Task();
+        hilo = new Thread(tarea); 
+        hilo.start();
         
     }
-    private void cargando(){
-      
-        
+    public void updateBar(int newValue) {
+            pgrBar.setValue(newValue);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,7 +38,8 @@ public class Splash extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        pgrBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,10 +47,10 @@ public class Splash extends javax.swing.JFrame {
 
         jLabel2.setText("Cargando...");
 
-        jButton1.setText("Siguiente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
 
@@ -60,30 +66,35 @@ public class Splash extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2))))
-                .addContainerGap(177, Short.MAX_VALUE))
+                            .addComponent(btnSiguiente)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(pgrBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(pgrBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnSiguiente)
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Login l = new Login(); 
-        this.setVisible(false);
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        l = new Login(); 
         l.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,10 +130,47 @@ public class Splash extends javax.swing.JFrame {
             }
         });
     }
-
+     public class Task implements Runnable
+    {
+        static final int MY_MINIMUM = 0;
+        static final int MY_MAXIMUM = 100;
+        
+        public Task(){}
+        @Override
+        public void run() {
+            pgrBar.setStringPainted(true);
+            int i = 0; 
+            while(true)
+            {
+                if(i<30)
+                    pgrBar.setString(i+"%");
+                if(i>30 && i<50)
+                    pgrBar.setString("La llevamos la mitad"); 
+                if(i>50 && i<100)
+                    pgrBar.setString("Ya queda muy poco... ");
+                if (i<100)
+                    updateBar(i);
+                else
+                    break; 
+                Random rand = new Random();
+                int randomNum = rand.nextInt((10- 0) + 1) + 0;
+                i = i+randomNum; 
+                
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    System.err.println("DO nothing");
+                }
+            }
+            pgrBar.setValue(100);
+            btnSiguiente.setEnabled(true);
+    
+    }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar pgrBar;
     // End of variables declaration//GEN-END:variables
 }
