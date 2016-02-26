@@ -54,6 +54,7 @@ public class Alumno {
     public void setAm(String am) {
         this.am = am;
     }
+    
      @Override
     public String toString(){
         return "idCategoria: "+this.noBoleta+"\n"+

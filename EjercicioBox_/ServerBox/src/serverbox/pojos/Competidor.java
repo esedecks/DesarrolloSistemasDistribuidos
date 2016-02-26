@@ -71,6 +71,7 @@ public class Competidor {
     public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
+    
     @Override
     public String toString(){
         return "idCompetidor: "+this.idCompetidor+"\n"+
