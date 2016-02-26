@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package serverbox;
+package DAOs;
 
 /**
  *
  * @author esedecks
  */
-public class Competidor {
+public class UsuarioDAO {
     
 }

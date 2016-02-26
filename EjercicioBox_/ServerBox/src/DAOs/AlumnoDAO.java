@@ -1,5 +1,9 @@
-package serverbox;
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAOs;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,78 +12,79 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import serverbox.pojos.Alumno;
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author esedecks
  */
-public class CategoriaDAO {
-    private static final String SQL_INSERT = "insert into categoria(nombre,rango) values(?,?)"; 
-    private static final String SQL_SELECT = "select * from categoria where idCategoria=?"; 
-    private static final String SQL_UPDATE = "update categoria set nombre=?,rango=? where idCategoria=?"; 
-    private static final String SQL_SELECT_ALL = "select * from categoria"; 
-     private static final String SQL_DELETE = "delete from categoria where idCategoria=?"; 
+public class AlumnoDAO {
+    private static final String SQL_INSERT = "insert into alumno(noBoleta,nombre,ap, am) values(?,?,?,?)"; 
+    private static final String SQL_SELECT = "select * from alumno where noBoleta=?"; 
+    private static final String SQL_UPDATE = "update alumno set nombre=?,ap=?,am=? where noBoleta=?"; 
+    private static final String SQL_SELECT_ALL = "select * from alumno"; 
+    private static final String SQL_DELETE = "delete from alumno where noBoleta=?"; 
+    
     java.sql.Connection con; 
     Statement st ; 
     String driver = "com.mysql.jdbc.Driver"; 
     String usuario = "root"; 
     String clave ="1234";
-    String URLBD = "jdbc:mysql://localhost:3306/Categoria"; 
+    String URLBD = "jdbc:mysql://localhost:3306/escuelaBox"; 
     
-    public void create(Categoria c ){
+    public void create(Alumno a ){
         PreparedStatement ps = null; 
         obtenerConexion(); 
         try{
             ps  = con.prepareStatement(SQL_INSERT); 
-            ps.setString(1, c.getNombre());
-            ps.setString(2, c.getRango());
-            ps.executeUpdate(); 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-    public void update(Categoria c){
-        PreparedStatement ps = null; 
-        obtenerConexion(); 
-        try{
-            ps  = con.prepareStatement(SQL_UPDATE); 
-            ps.setString(1, c.getNombre());
-            ps.setString(2, c.getRango());
-            ps.setInt(3, c.getCategoria());
+            ps.setString(1, a.getNoBoleta());
+            ps.setString(2, a.getNombre());
+            ps.setString(2, a.getAp());
+            ps.setString(2, a.getAm());
             ps.executeUpdate(); 
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
     
-     public void delete(Categoria c){
+    public void update(Alumno a){
         PreparedStatement ps = null; 
         obtenerConexion(); 
         try{
-            ps  = con.prepareStatement(SQL_DELETE); 
-            ps.setInt(1, c.getCategoria()); 
+            ps  = con.prepareStatement(SQL_UPDATE); 
+            ps.setString(1, a.getNombre());
+            ps.setString(2, a.getAp());
+            ps.setString(3, a.getAm());
+            ps.setString(4, a.getNoBoleta());
             ps.executeUpdate(); 
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
-    public Categoria read(Categoria c){
+    
+     public void delete(Alumno a){
+        PreparedStatement ps = null; 
+        obtenerConexion(); 
+        try{
+            ps  = con.prepareStatement(SQL_DELETE); 
+            ps.setString(1, a.getNoBoleta()); 
+            ps.executeUpdate(); 
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public Alumno read(Alumno a){
         PreparedStatement ps = null; 
         ResultSet rs = null; 
         obtenerConexion();
         try{
             ps = con.prepareStatement(SQL_SELECT); 
-            ps.setInt(1, c.getCategoria()); 
+            ps.setString(1,a.getNoBoleta()); 
             rs = ps.executeQuery(); 
             List resultado = obtenerRersultados(rs); 
             if(resultado.size()>0){
-                return (Categoria)resultado.get(0); 
+                return (Alumno)resultado.get(0); 
             }else{
                 return null; 
                 
@@ -94,11 +99,12 @@ public class CategoriaDAO {
     private List obtenerRersultados(ResultSet rs) throws SQLException{
         List resultados = new ArrayList(); 
         while(rs.next()){
-            Categoria c = new Categoria(); 
-            c.setCategoria(rs.getInt("idCategoria"));
-            c.setNombre(rs.getString("nombre"));
-            c.setRango(rs.getString("rango"));
-            resultados.add(c); 
+            Alumno a = new Alumno(); 
+            a.setNoBoleta(rs.getString("noBoleta"));
+            a.setNombre(rs.getString("nombre"));
+            a.setAp(rs.getString("ap"));
+            a.setAm(rs.getString("am"));
+            resultados.add(a); 
         }
         return resultados; 
     }
@@ -125,5 +131,5 @@ public class CategoriaDAO {
         }catch(Exception e){
             e.printStackTrace();  
         }
-    }
+    }    
 }

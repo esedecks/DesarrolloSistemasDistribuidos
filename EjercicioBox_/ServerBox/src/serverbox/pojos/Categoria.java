@@ -1,11 +1,16 @@
 
-package serverbox;
+package serverbox.pojos;
 
 public class Categoria {
     private int categoria; 
     private String nombre, rango; 
     public Categoria (){
     
+    }
+
+    public Categoria(String nombre, String rango) {
+        this.nombre = nombre;
+        this.rango = rango;
     }
     
     public int getCategoria() {
@@ -32,6 +37,7 @@ public class Categoria {
         this.rango = rango;
     }
    
+    @Override
     public String toString(){
         return "idCategoria: "+this.categoria+"\n"+
                 "nombre: "+this.nombre+"\n"+
