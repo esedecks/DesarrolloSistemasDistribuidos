@@ -5,6 +5,8 @@
  */
 package DAOs;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,20 +34,20 @@ public class AlumnoDAO {
     String usuario = "root"; 
     String clave ="1234";
     String URLBD = "jdbc:mysql://localhost:3306/escuelaBox"; 
-    
-    public void create(Alumno a ){
+    PrintStream salida = null; 
+
+    public void setPw(PrintStream ps) {
+        this.salida = ps;
+    }
+    public void create(Alumno a )throws Exception{
         PreparedStatement ps = null; 
         obtenerConexion(); 
-        try{
             ps  = con.prepareStatement(SQL_INSERT); 
             ps.setString(1, a.getNoBoleta());
             ps.setString(2, a.getNombre());
-            ps.setString(2, a.getAp());
-            ps.setString(2, a.getAm());
+            ps.setString(3, a.getAp());
+            ps.setString(4, a.getAm());
             ps.executeUpdate(); 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
     }
     
     public void update(Alumno a){
@@ -63,16 +65,21 @@ public class AlumnoDAO {
         }
     }
     
-     public void delete(Alumno a){
+     public void delete(Alumno a) throws Exception{
         PreparedStatement ps = null; 
         obtenerConexion(); 
-        try{
-            ps  = con.prepareStatement(SQL_DELETE); 
-            ps.setString(1, a.getNoBoleta()); 
-            ps.executeUpdate(); 
-        }catch(SQLException e){
-            e.printStackTrace();
+        
+        ps  = con.prepareStatement(SQL_DELETE); 
+        ps.setString(1, a.getNoBoleta()); 
+        int i =ps.executeUpdate(); 
+        if(i == 0){
+            salida.println(" \n No se puedo borrar el alumno");
+            salida.flush();
+        }else{
+            salida.println(" \n Se borró el alumno con éxito");
+            salida.flush();
         }
+     
     }
     public Alumno read(Alumno a){
         PreparedStatement ps = null; 
@@ -116,7 +123,7 @@ public class AlumnoDAO {
         try{
             ps = con.prepareStatement(SQL_SELECT_ALL); 
             rs = ps.executeQuery(); 
-             resultados = obtenerRersultados(rs); 
+            resultados = obtenerRersultados(rs); 
             
         }catch(Exception e){
             e.printStackTrace();

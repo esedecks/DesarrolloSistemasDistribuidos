@@ -57,9 +57,9 @@ public class Alumno {
     
      @Override
     public String toString(){
-        return "idCategoria: "+this.noBoleta+"\n"+
+        return "NoBoleta: "+this.noBoleta+"\n"+
                 "nombre: "+this.nombre+"\n"+
-                "ap: "+this.ap+"\n"+"\n"+
+                "ap: "+this.ap+"\n"+
                 "am: "+this.am; 
     }
 }

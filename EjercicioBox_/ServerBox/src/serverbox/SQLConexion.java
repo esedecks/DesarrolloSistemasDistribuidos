@@ -1,8 +1,11 @@
 
 package serverbox;
+import DAOs.AlumnoDAO;
 import java.io.*;
 import java.net.Socket;
 import java.sql.*;
+import java.util.List;
+import serverbox.pojos.Alumno;
 
 /**
  *
@@ -40,36 +43,57 @@ public class SQLConexion extends Thread {
         }
     }
     private void ejecutarSQL() {
-        java.sql.Connection con; 
-        Statement st ; 
-        String driver = "com.mysql.jdbc.Driver"; 
-        String usuario = "root"; 
-        String clave ="1234";
-        String URLBD = "jdbc:mysql://localhost:3306/world"; 
         try{
-            Class.forName(driver); 
-            con = DriverManager.getConnection(URLBD, usuario, clave); 
-            st = con.createStatement(); 
-            //verificar la consulta 
-            if(isLectura()){
-                    ejecutarLectura(st);
-            }else if(consulta.startsWith("use ")){
-               
-                System.err.println("Entra en use ------->>"); 
-                String bd = consulta.substring(consulta.indexOf(" ")); 
-                bd = bd.trim(); 
-                con.setCatalog(bd);
-                consulta = "show tables"; 
-                URLBD = "jdbc:mysql://localhost:3306/"+bd;
-                //Class.forName(driver); 
-                //
-                con = DriverManager.getConnection(URLBD, usuario, clave); 
-                st = con.createStatement();
-                ejecutarLectura(st);
+            //el cliente enviará la estructura como 
+            //alumno, [agregar, elimanr, actualizar, consultarUno,consultarTodos],
+            if(consulta.contains("alumno")){
+                String elementos[] = consulta.split(",");
+                AlumnoDAO alumnoDao = new AlumnoDAO();
+                Alumno a ; 
+                alumnoDao.setPw(salida);
+                switch(elementos[1]){
+                    case "agregar":
+                        a = new Alumno( elementos[2], elementos[3], elementos[4], elementos[5]); 
+                        alumnoDao.create(a);
+                        salida.println(consulta +" \nSe insertó con éxito");
+                        salida.flush();
+                    break; 
+                    case "eliminar": 
+                        a = new Alumno(); 
+                        a.setNoBoleta(elementos[2]);
+                        alumnoDao.delete(a);
+                    break; 
+                    case "actualizar":
+                        a = new Alumno( elementos[2], elementos[3], elementos[4], elementos[5]); 
+                        alumnoDao.update(a);
+                        salida.println(consulta +" \nSe Actualizo con éxito");
+                        salida.flush();
+                    break; 
+                    case "consultarUno":
+                        a = new Alumno();
+                        a.setNoBoleta(elementos[2]);
+                        a = alumnoDao.read(a);
+                        salida.println(a.toString()); 
+                        salida.flush();
+                    break; 
+                    case "consultarTodo":
+                        List lista = alumnoDao.readAll(); 
+                        StringBuilder sb = new StringBuilder(); 
+                        for(int i = 0; i<lista.size(); i++){
+                            sb.append(lista.get(i).toString()); 
+                            sb.append("\n_______________________\n"); 
+                        }
+                        salida.print(sb.toString());
+                        salida.flush();
+                    break; 
+                    default:
+                        System.err.println("No fue posible ejecutar el query"); 
+                    break; 
+                }
             }
-            else
-                ejecutarEscritura(st);
-            con.close(); 
+            
+            
+      
         }catch(Exception e){
             e.printStackTrace();
             salida.print("No fue posible ejecutar la sentencia: '"+consulta+"'"); 

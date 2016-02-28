@@ -1,4 +1,4 @@
-package ejerciciobox;
+package ejerciciobox.vistas;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

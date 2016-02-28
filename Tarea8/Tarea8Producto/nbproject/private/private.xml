@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea8Producto/src/tarea8producto/Tarea8Producto.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea8/Tarea8Producto/src/tarea8producto/Producto.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea8/Tarea8Producto/src/tarea8producto/Conexion.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea8/Tarea8Producto/src/tarea8producto/ProductoDAO.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea8/Tarea8Producto/src/tarea8producto/Servidor.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea8/Tarea8Producto/src/tarea8producto/Cliente.java</file>
         </group>
     </open-files>
 </project-private>
