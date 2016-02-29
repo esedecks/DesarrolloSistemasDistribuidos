@@ -1,37 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejercicio2cliente;
 
 import java.io.IOException;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
  * @author esedecks
  */
 public class Main extends javax.swing.JFrame   {
-
     DefaultTableModel tableModelBD;  
     DefaultTableModel tableModelTablas; 
     DefaultTableModel tableModelEstructuras;  
+    DefaultTableModel tableModel ; 
     Cliente cliente; 
+    String manejador = ""; 
+    
     public Main() {
         initComponents();
-        tableModelBD = new DefaultTableModel(); 
-        tableModelTablas = new DefaultTableModel(); 
-        tableModelEstructuras = new DefaultTableModel(); 
         this.initTables();
         cliente = new Cliente(); 
     }
     private void initTables(){
-        
+        tableModelBD = new DefaultTableModel(); 
+        tableModelTablas = new DefaultTableModel(); 
+        tableModelEstructuras = new DefaultTableModel(); 
         String [] datos = {"Nothing to show"}; 
         tableModelBD.addColumn("Base de datos", datos);
         tblBD.setModel(tableModelBD);
@@ -40,11 +34,7 @@ public class Main extends javax.swing.JFrame   {
         tblEstructura.setModel(tableModelEstructuras);
         
         tableModelTablas.addColumn("Tablas", datos);
-        tblTablas.setModel(tableModelTablas);
-       
-        
-       
-        
+        tblTablas.setModel(tableModelTablas); 
     }
    
     @SuppressWarnings("unchecked")
@@ -59,9 +49,9 @@ public class Main extends javax.swing.JFrame   {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTablas = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblRelacion = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtConsulta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblEstructura = new javax.swing.JTable();
@@ -78,7 +68,7 @@ public class Main extends javax.swing.JFrame   {
 
         jLabel1.setText("Gestor de Base de datos.");
 
-        cmbManejador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " mySQL", "PostgreSQL" }));
+        cmbManejador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "mySQL", "PostgreSQL" }));
         cmbManejador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbManejadorActionPerformed(evt);
@@ -119,9 +109,14 @@ public class Main extends javax.swing.JFrame   {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTablas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblTablasMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblTablas);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblRelacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -132,11 +127,16 @@ public class Main extends javax.swing.JFrame   {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tblRelacion);
 
         jLabel2.setText("Consulta");
 
         jButton1.setText("Consultar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tblEstructura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,7 +170,7 @@ public class Main extends javax.swing.JFrame   {
                                 .addGap(26, 26, 26)
                                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)))
+                                    .addComponent(txtConsulta)))
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
@@ -195,7 +195,7 @@ public class Main extends javax.swing.JFrame   {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
@@ -248,25 +248,23 @@ public class Main extends javax.swing.JFrame   {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void cmbManejadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbManejadorActionPerformed
-        String manejador  = (String)cmbManejador.getItemAt(cmbManejador.getSelectedIndex());
+        manejador  = (String)cmbManejador.getItemAt(cmbManejador.getSelectedIndex());
         System.err.println("El manejador es: "+manejador); 
-        manejador = manejador.trim(); 
-        /*
-         mySQL
-         PostgreSQL
-        */
-        
         switch(manejador){
             case "mySQL":
-                System.err.println("Entra aquí!!"); 
                 cliente = new Cliente(); 
-                cargarTablas(); 
+                cargarTablas(manejador); 
                 break; 
             case "PostgreSQL":
+                System.err.println("Entra en posgreSQL");                
+                try{
+                    cliente = new Cliente(); 
+                    cargarTablas(manejador);
+                    System.err.println(cliente.receiveMessage()); 
+                }catch(Exception e){e.printStackTrace();}
                 break; 
             default: 
                 break; 
@@ -279,13 +277,21 @@ public class Main extends javax.swing.JFrame   {
 
     private void tblBDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBDMousePressed
        int selectedRow = tblBD.getSelectedRow(); 
-       String valor = (String)tblBD.getModel().getValueAt(selectedRow, 0); 
-       System.err.println("SELECTED VALUE = "+valor); 
+       String bdName = (String)tblBD.getModel().getValueAt(selectedRow, 0); 
+       //System.err.println("SELECTED VALUE = "+valor); 
         try {
             //hay que hacer una nueva solicitud
-            cliente.sendMessage("use "+valor);
+            String query = ""; 
+            if(manejador.contains("PostgreSQL")){
+                query = "postgreSQL,SELECT table_name FROM information_schema.tables WHERE table_schema = 'public',"+bdName; 
+                cliente.sendMessage(query);
+            }else{
+                query  = "mySQL,show tables,"+bdName;
+                cliente.sendMessage( query);
+            } 
+                
             String respuesta = cliente.receiveMessage(); 
-            System.err.println("Respuesta; "+respuesta); 
+            //System.err.println("Respuesta; "+respuesta); 
             Vector vectorTablas = new Vector(); 
                 tableModelTablas = new DefaultTableModel();
              String[] namesTablas = respuesta.split("\\r?\\n");
@@ -302,22 +308,110 @@ public class Main extends javax.swing.JFrame   {
             }
             tableModelTablas.addColumn("Tablas", vectorTablas);
             tblTablas.setModel(tableModelTablas);
-           // cliente.sendMessage("show tables");
-            //respuesta = cliente.receiveMessage(); 
-            //System.err.println("Respuesta; "+respuesta); 
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tblBDMousePressed
-    
-    private void cargarTablas(){
-        String query = "show databases"; 
+
+    private void tblTablasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablasMousePressed
+       int sRow = tblBD.getSelectedRow(); 
+       String bdName = (String)tblBD.getModel().getValueAt(sRow, 0); 
+       int selectedRow = tblTablas.getSelectedRow(); 
+       String tableName = (String)tblTablas.getModel().getValueAt(selectedRow, 0);
+        try {
+            //hay que hacer una nueva solicitud
+            String query = ""; 
+            if(manejador.contains("PostgreSQL") ) {
+                query ="postgreSQL,SELECT column_name FROM information_schema.columns WHERE table_name ='"+tableName+"',"+bdName; 
+                System.err.println("Se manda "+query); 
+                cliente.sendMessage(query);
+           }else
+                cliente.sendMessage("mySQL,describe "+tableName+","+bdName);
+            String respuesta = cliente.receiveMessage(); 
+            //System.err.println("Respuesta; "+respuesta); 
+            Vector vectorTablas = new Vector(); 
+            tableModelEstructuras = new DefaultTableModel();
+             String[] nameMeta = respuesta.split("\\r?\\n");
+            int i = 0; 
+            for(String meta : nameMeta){
+                if(i == 0){
+                    i++; 
+                  continue;
+                }
+                meta = meta.replace("|", " "); 
+               
+                //System.err.println("nameDB" +meta); 
+               vectorTablas.add(meta); 
+            
+            }
+            tableModelEstructuras.addColumn("Estructura", vectorTablas);
+            tblEstructura.setModel(tableModelEstructuras);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+        
+    }//GEN-LAST:event_tblTablasMousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int sRow = tblBD.getSelectedRow(); 
+        String bdName = (String)tblBD.getModel().getValueAt(sRow, 0);
+        String query = txtConsulta.getText(); 
+       
+        String respuesta = ""; 
+        try{
+            if(manejador.contains("PostgreSQL")){
+                cliente.sendMessage("postgreSQL,"+query+","+bdName);
+            }else
+                cliente.sendMessage("mySQL,"+query+","+bdName);
+            respuesta = cliente.receiveMessage();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        if(respuesta.startsWith(query)){
+            JOptionPane.showMessageDialog(null, "La modificación fue hecha!");
+        }else if(respuesta.startsWith("No fue posible")){
+            JOptionPane.showMessageDialog(null, "No es posible ejecutar "+query);
+        }
+       else{
+            displayTabla(respuesta); 
+        }
+        //System.err.println("La respuesta es: "); 
+        //System.err.println(respuesta+"\nfin"); 
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void displayTabla(String mensaje){
+        if(mensaje.startsWith("No hay")){
+            JOptionPane.showMessageDialog(null,"No hay más filas");
+            return;   
+        }
+        tableModel = new  DefaultTableModel(); 
+        //divir or lineas
+        String[] lineas = mensaje.split("\\r?\\n"); 
+        for(int i = 0; i<lineas.length; i++){
+            if(i==0){
+                String[] columnas = lineas[0].split("\\|"); 
+                for(String columna : columnas)
+                    this.tableModel.addColumn(columna);
+                continue; 
+            }
+            //PARA TODAS LAS DEMÁS LINEAS SOLO SE DIVE POR |
+            String[]  datosPorFila = lineas[i].split("\\|"); 
+            tableModel.addRow(datosPorFila);
+            
+        }
+        tblRelacion.setModel(tableModel);
+    }
+    private void cargarTablas(String manejador){
+        String query = ""; 
         Vector vectorDBnames = new Vector(); 
         tableModelBD = new DefaultTableModel();
         try{
+            if(manejador.contains("PostgreSQL"))
+                query ="postgreSQL,SELECT datname FROM pg_database,postgres"; //dud adel nombre
+            else if(manejador.contains("mySQL"))
+                query = "mySQL,show databases,mysql";
             cliente.sendMessage(query);
             String respuesta = cliente.receiveMessage(); 
-            System.err.println("La respuesta"+respuesta); 
+            //System.err.println("La respuesta"+respuesta); 
             String[] namesDBs = respuesta.split("\\r?\\n");
             int i = 0; 
             for(String nameDB : namesDBs){
@@ -364,9 +458,6 @@ public class Main extends javax.swing.JFrame   {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -392,11 +483,11 @@ public class Main extends javax.swing.JFrame   {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblBD;
     private javax.swing.JTable tblEstructura;
+    private javax.swing.JTable tblRelacion;
     private javax.swing.JTable tblTablas;
+    private javax.swing.JTextField txtConsulta;
     // End of variables declaration//GEN-END:variables
 
   

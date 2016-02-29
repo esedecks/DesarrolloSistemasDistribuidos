@@ -12,10 +12,12 @@ public class Cliente  {
     Socket s; 
     PrintWriter salida ; 
     BufferedReader entrada; 
-    
+    String manejador = ""; 
+    String[] manejadores = {"mySQL","PostgreSQL"}; 
     public Cliente(){
         
     }
+
     public void sendMessage(String msj)throws UnknownHostException, IOException{
         System.err.println("Enviando mensaje"); 
         s = new Socket(host, PORT); 
@@ -23,6 +25,8 @@ public class Cliente  {
         entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));
         salida.println(msj);
         salida.flush();
+                
+        
     }
     public String receiveMessage() throws IOException{
         String linea ; 
@@ -35,4 +39,4 @@ public class Cliente  {
         return sb.toString();
     }
 }
-
+   
