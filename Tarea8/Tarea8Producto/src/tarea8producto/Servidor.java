@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,11 +27,36 @@ public class Servidor {
             BufferedReader entrada = new BufferedReader(new InputStreamReader(s.getInputStream())); 
             PrintWriter salida = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); 
             String cadena = entrada.readLine(); 
+            boolean respuesta = false; 
+            //insertar
             String[] elementos = cadena.split(","); 
             Producto p = new Producto (Integer.parseInt(elementos[0]),elementos[1],Double.parseDouble(elementos[2])); 
-            boolean respuesta = ProductoDAO.insertarProducto(p); 
+            respuesta = ProductoDAO.insertarProducto(p); 
+//            salida.println(respuesta);
+//            salida.flush(); 
+            //actualizar 
+            respuesta = ProductoDAO.actualizarProducto(p); 
             salida.println(respuesta);
-            salida.flush();  
+            salida.flush(); 
+            System.err.println("Se mando respuesta"); 
+            //eliminar 
+//            respuesta = ProductoDAO.borrarProducto(p); 
+//            salida.println(respuesta);
+//            salida.flush();
+            //consultarUnProducto
+//            Producto ptemp ; 
+//            ptemp = ProductoDAO.mostrarProducto(p); 
+//            salida.println(ptemp.toString());
+//            salida.flush();
+//            //consultar todos los productos
+            ArrayList<Producto> productos = ProductoDAO.mostrarProductos();
+            StringBuilder sb  = new StringBuilder(); 
+            for(Producto pt: productos){
+                sb.append(pt.toString()); 
+                sb.append("\r\n"); 
+            }
+//            salida.println(sb.toString());
+//            salida.flush();
         }catch(Exception e){
             e.printStackTrace();
         }

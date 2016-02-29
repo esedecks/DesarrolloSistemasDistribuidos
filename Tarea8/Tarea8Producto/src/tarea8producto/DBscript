@@ -1,0 +1,49 @@
+create database Tienda; 
+use Tienda; 
+create table producto(idProducto int not null, 
+                      nombre varchar(30) not null, 
+                      precio double not null, 
+                      primary key(idProducto)); 
+//creando los storeProcedures
+
+delimiter &
+create procedure insertarProducto(in idProducto int,in nombre varchar(30),in precio double)
+begin 
+ insert into producto values(idProducto,nombre,precio); 
+end &
+delimiter ; 
+
+
+delimiter &
+create procedure actualizarProducto(in idItem int,in name varchar(30),in price double)
+begin 
+    update producto 
+    set nombre = name,
+    precio = price
+    where idProducto = idItem; 
+end &
+delimiter ; 
+
+delimiter &
+create procedure borrarProducto(in idItem int)
+begin 
+    delete from producto 
+    where idProducto = idItem; 
+end &
+delimiter ; 
+
+delimiter &
+create procedure mostrarProducto(in idItem int)
+begin 
+    select * from producto 
+    where idProducto = idItem;  
+end &
+delimiter ; 
+
+
+delimiter &
+create procedure mostrarProductos()
+begin 
+    select * from producto;  
+end &
+delimiter ; 

@@ -20,7 +20,9 @@ public class Cliente {
         Socket s = new Socket("localhost", 5000); 
         BufferedReader entrada = new BufferedReader(new InputStreamReader(s.getInputStream())); 
         PrintWriter salida = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); 
-        salida.print("1,Axe desodorante,35.9");
+        salida.print("5,Negrito Bimbo,10.2");
         salida.flush();
+        String respuesta = entrada.readLine(); 
+        System.err.println(respuesta); 
     }
 }
