@@ -221,6 +221,11 @@ public class Main extends javax.swing.JFrame   {
         jMenu3.setText("Ayuda");
 
         jMenuItem1.setText("Acerca de");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
@@ -248,6 +253,8 @@ public class Main extends javax.swing.JFrame   {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        System.exit(0);
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void cmbManejadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbManejadorActionPerformed
@@ -378,6 +385,17 @@ public class Main extends javax.swing.JFrame   {
         //System.err.println("La respuesta es: "); 
         //System.err.println(respuesta+"\nfin"); 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        String mensaje = "1.Seleccione un sistema gestor de base de datos(mysql o postgeSQL)\n"
+                        +"2.Seleccione una base de datos\n"
+                        +"3.Selecione una tabla\n"
+                        +"4.Visualice los metadatos\n"
+                        +"Ingrese consultas sql a la tabla seleccionada\n"
+                        +"Si tiene dudas sobre el sistema mande un correo a : "
+                        +"jdecks.visible@outlook.com";
+        JOptionPane.showMessageDialog(null, mensaje);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     private void displayTabla(String mensaje){
         if(mensaje.startsWith("No hay")){
             JOptionPane.showMessageDialog(null,"No hay más filas");
