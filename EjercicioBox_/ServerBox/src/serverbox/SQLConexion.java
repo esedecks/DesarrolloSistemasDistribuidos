@@ -100,6 +100,8 @@ public class SQLConexion extends Thread {
             salida.flush();
         } 
     }
+    
+    
     private boolean isLectura(){
         boolean bandera = true;
         //SOLAMENTE SE ASUME QUE ES UN SELECT PERO NO DEPENDE 

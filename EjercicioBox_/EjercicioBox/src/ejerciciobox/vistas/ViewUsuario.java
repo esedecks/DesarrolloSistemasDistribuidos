@@ -7,22 +7,22 @@ package ejerciciobox.vistas;
 
 import ejerciciobox.Cliente;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author esedecks
  */
-public class ViewAlumno extends javax.swing.JFrame {
+public class ViewUsuario extends javax.swing.JFrame {
 
+    /**
+     * Creates new form ViewUsuario
+     */
     Cliente cl ; 
-    DefaultTableModel tableModel; 
-    public ViewAlumno(Cliente cl) {
+    public ViewUsuario(Cliente cl ) {
         initComponents();
-        this.cl= cl; 
+        this.cl = cl ; 
     }
 
     /**
@@ -34,20 +34,6 @@ public class ViewAlumno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtNoBoleta = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtAp = new javax.swing.JTextField();
-        txtAm = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        txtNoBoletaBorrar = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtNoBoletaActualizar = new javax.swing.JTextField();
@@ -58,122 +44,29 @@ public class ViewAlumno extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtAmActualizar = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         txtNoBoletaConsultar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtNoBoleta = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtAp = new javax.swing.JTextField();
+        txtAm = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDatos = new javax.swing.JTextArea();
+        jButton5 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        txtNoBoletaBorrar = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Alumno"));
-
-        jLabel3.setText("No Boleta");
-
-        jLabel4.setText("Nombre");
-
-        jLabel5.setText("Materno");
-
-        jLabel6.setText("Paterno");
-
-        txtAp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre)
-                    .addComponent(txtNoBoleta)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addComponent(txtAm)
-                    .addComponent(txtAp)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNoBoleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtAp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtAm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Borrar Alumno"));
-
-        jLabel11.setText("No Boleta");
-
-        jButton3.setText("Borrar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(0, 83, Short.MAX_VALUE))
-                    .addComponent(txtNoBoletaBorrar)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtNoBoletaBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualizar Alumno"));
 
@@ -246,14 +139,82 @@ public class ViewAlumno extends javax.swing.JFrame {
 
         jLabel1.setText("Consultar Alumno");
 
-        jLabel2.setText("NoBoleta");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Alumno"));
 
-        jButton4.setText("Consultar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("No Boleta");
+
+        jLabel4.setText("Nombre");
+
+        jLabel5.setText("Materno");
+
+        jLabel6.setText("Paterno");
+
+        txtAp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                txtApActionPerformed(evt);
             }
         });
+
+        jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addComponent(txtNoBoleta)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 63, Short.MAX_VALUE))
+                    .addComponent(txtAm)
+                    .addComponent(txtAp)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNoBoleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtAp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtAm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
+        jLabel2.setText("NoBoleta");
+
+        txtDatos.setColumns(20);
+        txtDatos.setRows(5);
+        jScrollPane1.setViewportView(txtDatos);
 
         jButton5.setText("Consultar Lista de Alumnos");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -262,9 +223,48 @@ public class ViewAlumno extends javax.swing.JFrame {
             }
         });
 
-        txtDatos.setColumns(20);
-        txtDatos.setRows(5);
-        jScrollPane1.setViewportView(txtDatos);
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Borrar Alumno"));
+
+        jLabel11.setText("No Boleta");
+
+        jButton3.setText("Borrar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel11)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtNoBoletaBorrar)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtNoBoletaBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton4.setText("Consultar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,40 +315,74 @@ public class ViewAlumno extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtApActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApActionPerformed
-
     private void txtApActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApActualizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApActualizarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //consultar si todos los campos están llenos 
-        ArrayList<JTextField> campos = new ArrayList<>(); 
-        campos.add(txtNoBoleta); 
-        campos.add(txtNombre); 
-        campos.add(txtAp); 
-        campos.add(txtAm); 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ArrayList<JTextField> campos = new ArrayList<>();
+        campos.add(txtNoBoletaActualizar);
+        campos.add(txtNombreActualizar);
+        campos.add(txtApActualizar);
+        campos.add(txtAmActualizar);
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
-            return ; 
+            return ;
         }
-        String noBoleta = txtNoBoleta.getText(); 
-        String nombre = txtNombre.getText(); 
-        String ap = txtAp.getText(); 
-        String am = txtAm.getText(); 
+        String noBoleta = txtNoBoletaActualizar.getText();
+        String nombre = txtNombreActualizar.getText();
+        String ap = txtApActualizar.getText();
+        String am = txtAmActualizar.getText();
+        String query = "";
+        query = "alumno,actualizar,"+noBoleta+","+nombre+","+ap+","+am;
+
+        System.err.println("Query : "+query);
+        try{
+            cl.sendMessage(query);
+            String respuesta = cl.receiveMessage();
+            if(respuesta.startsWith(query)){
+                JOptionPane.showMessageDialog(null, "La modificación fue hecha!");
+            }else if(respuesta.startsWith("No fue posible")){
+                JOptionPane.showMessageDialog(null, "No es posible ejecutar "+query);
+            }
+
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
+        limpiarCampos(campos);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtApActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //consultar si todos los campos están llenos
+        ArrayList<JTextField> campos = new ArrayList<>();
+        campos.add(txtNoBoleta);
+        campos.add(txtNombre);
+        campos.add(txtAp);
+        campos.add(txtAm);
+        allIsFill(campos);
+        if(!allIsFill(campos)){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            return ;
+        }
+        String noBoleta = txtNoBoleta.getText();
+        String nombre = txtNombre.getText();
+        String ap = txtAp.getText();
+        String am = txtAm.getText();
         String query = "insert into alumno values('"+noBoleta+"','"+nombre +"','"+ap+"','"+am+"')";
         /* //alumno, [agregar, elimanr, actualizar, consultarUno,consultarTodos],*/
-        query = "alumno,agregar,"+noBoleta+","+nombre+","+ap+",am"; 
-        System.err.println("Query : "+query); 
+        query = "alumno,agregar,"+noBoleta+","+nombre+","+ap+",am";
+        System.err.println("Query : "+query);
         try{
             cl.sendMessage(query);
             String respuesta = cl.receiveMessage();
@@ -361,86 +395,60 @@ public class ViewAlumno extends javax.swing.JFrame {
         }catch(Exception e ){
             e.printStackTrace();
         }
-        limpiarCampos(campos); 
+        limpiarCampos(campos);
     }//GEN-LAST:event_jButton1ActionPerformed
-    private void limpiarCampos(ArrayList<JTextField> campos){
-        for(JTextField campo: campos)
-            campo.setText("");
-        
-    }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<JTextField> campos = new ArrayList<>(); 
-        campos.add(txtNoBoletaActualizar); 
-        campos.add(txtNombreActualizar); 
-        campos.add(txtApActualizar); 
-        campos.add(txtAmActualizar); 
-        allIsFill(campos);
-        if(!allIsFill(campos)){
-            JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
-            return ; 
-        }
-        String noBoleta = txtNoBoletaActualizar.getText(); 
-        String nombre = txtNombreActualizar.getText(); 
-        String ap = txtApActualizar.getText(); 
-        String am = txtAmActualizar.getText(); 
-        String query = "";
-        query = "alumno,actualizar,"+noBoleta+","+nombre+","+ap+","+am; 
-      
-        System.err.println("Query : "+query); 
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String query = "alumno,consultarTodo";
         try{
             cl.sendMessage(query);
-            String respuesta = cl.receiveMessage(); 
-            if(respuesta.startsWith(query)){
-                JOptionPane.showMessageDialog(null, "La modificación fue hecha!");
-            }else if(respuesta.startsWith("No fue posible")){
-                JOptionPane.showMessageDialog(null, "No es posible ejecutar "+query);
-            }
-            
+            String respuesta = cl.receiveMessage();
+            txtDatos.setText(respuesta);
+
         }catch(Exception e ){
             e.printStackTrace();
         }
-        limpiarCampos(campos); 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ArrayList<JTextField> campos = new ArrayList<>(); 
-        campos.add(txtNoBoletaBorrar);  
+        ArrayList<JTextField> campos = new ArrayList<>();
+        campos.add(txtNoBoletaBorrar);
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Falta campo por llenar");
-            return ; 
+            return ;
         }
-        String noBoleta = txtNoBoletaBorrar.getText(); 
-        String query ; 
-        query = "alumno,eliminar,"+noBoleta;                
-      
-        System.err.println("Query : "+query); 
+        String noBoleta = txtNoBoletaBorrar.getText();
+        String query ;
+        query = "alumno,eliminar,"+noBoleta;
+
+        System.err.println("Query : "+query);
         try{
             cl.sendMessage(query);
-            String respuesta = cl.receiveMessage(); 
+            String respuesta = cl.receiveMessage();
             JOptionPane.showMessageDialog(null,respuesta);
-            
+
         }catch(Exception e ){
             e.printStackTrace();
         }
-        limpiarCampos(campos); 
+        limpiarCampos(campos);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ArrayList<JTextField> campos = new ArrayList<>(); 
-        campos.add(txtNoBoletaConsultar); 
+        ArrayList<JTextField> campos = new ArrayList<>();
+        campos.add(txtNoBoletaConsultar);
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Falta campo por llenar");
-            return ; 
+            return ;
         }
-        String noBoleta = txtNoBoletaConsultar.getText(); 
-        String query = "alumno,consultarUno,"+noBoleta; 
-        System.err.println("Query : "+query); 
+        String noBoleta = txtNoBoletaConsultar.getText();
+        String query = "alumno,consultarUno,"+noBoleta;
+        System.err.println("Query : "+query);
         try{
             cl.sendMessage(query);
-            String respuesta = cl.receiveMessage(); 
-            System.err.println("Respuesta"+respuesta); 
+            String respuesta = cl.receiveMessage();
+            System.err.println("Respuesta"+respuesta);
             if(respuesta.startsWith("No fue posible ejecutar")){
                 JOptionPane.showMessageDialog(null, "No fue posible ejecutar la consulta");
             }else{
@@ -449,23 +457,13 @@ public class ViewAlumno extends javax.swing.JFrame {
         }catch(Exception e ){
             e.printStackTrace();
         }
-        limpiarCampos(campos); 
-        
-
+        limpiarCampos(campos);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String query = "alumno,consultarTodo"; 
-        try{
-            cl.sendMessage(query);
-            String respuesta = cl.receiveMessage(); 
-            txtDatos.setText(respuesta);
-            
-        }catch(Exception e ){
-            e.printStackTrace();
-        }
+     private void limpiarCampos(ArrayList<JTextField> campos){
+        for(JTextField campo: campos)
+            campo.setText("");
         
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }
     private boolean allIsFill(ArrayList<JTextField> campos){
         boolean bandera = true; 
         for(JTextField campo : campos){
@@ -475,8 +473,6 @@ public class ViewAlumno extends javax.swing.JFrame {
         return bandera; 
     
     }
-    
- 
     /**
      * @param args the command line arguments
      */
@@ -494,20 +490,20 @@ public class ViewAlumno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new ViewAlumno().setVisible(true);
+               // new ViewUsuario().setVisible(true);
             }
         });
     }
