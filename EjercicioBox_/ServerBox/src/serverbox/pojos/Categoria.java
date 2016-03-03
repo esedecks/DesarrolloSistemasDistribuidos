@@ -5,10 +5,15 @@ public class Categoria {
     private int categoria; 
     private String nombre, rango; 
     public Categoria (){
-    
     }
 
     public Categoria(String nombre, String rango) {
+        this.nombre = nombre;
+        this.rango = rango;
+    }
+
+    public Categoria(int categoria, String nombre, String rango) {
+        this.categoria = categoria;
         this.nombre = nombre;
         this.rango = rango;
     }

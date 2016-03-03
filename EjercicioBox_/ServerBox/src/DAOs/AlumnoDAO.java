@@ -6,7 +6,6 @@
 package DAOs;
 
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,6 +1,7 @@
 package DAOs;
 
 
+import java.io.PrintStream;
 import serverbox.pojos.Categoria;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,7 +33,11 @@ public class CategoriaDAO {
     String usuario = "root"; 
     String clave ="1234";
     String URLBD = "jdbc:mysql://localhost:3306/escuelaBox"; 
-    
+    PrintStream salida = null; 
+
+    public void setPw(PrintStream ps) {
+        this.salida = ps;
+    }
     public void create(Categoria c ){
         PreparedStatement ps = null; 
         obtenerConexion(); 
@@ -65,7 +70,14 @@ public class CategoriaDAO {
         try{
             ps  = con.prepareStatement(SQL_DELETE); 
             ps.setInt(1, c.getCategoria()); 
-            ps.executeUpdate(); 
+            int i = ps.executeUpdate(); 
+            if(i == 0){
+            salida.println(" \n No se puedo borrar la categoria");
+            salida.flush();
+            }else{
+                salida.println(" \n Se borró la categoria con éxito");
+                salida.flush();
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }

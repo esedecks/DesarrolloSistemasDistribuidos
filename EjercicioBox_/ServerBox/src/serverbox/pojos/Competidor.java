@@ -26,6 +26,14 @@ public class Competidor {
         this.idCategoria = idCategoria;
     }
 
+    public Competidor(int idCompetidor, String nombre, String peso, String escuelaOrigen, int idCategoria) {
+        this.idCompetidor = idCompetidor;
+        this.nombre = nombre;
+        this.peso = peso;
+        this.escuelaOrigen = escuelaOrigen;
+        this.idCategoria = idCategoria;
+    }
+
     public Competidor(String nombre, String peso, String escuelaOrigen) {
         this.nombre = nombre;
         this.peso = peso;

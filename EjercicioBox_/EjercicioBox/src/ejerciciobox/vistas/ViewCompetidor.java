@@ -7,6 +7,8 @@ package ejerciciobox.vistas;
 
 import ejerciciobox.Cliente;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -20,9 +22,24 @@ public class ViewCompetidor extends javax.swing.JFrame {
      * Creates new form ViewCompetidor
      */
     Cliente cl ; 
+
     public ViewCompetidor(Cliente cl ) {
         initComponents();
         this.cl = cl ; 
+        cargarCombos();
+    }
+    private void cargarCombos(){
+        cmbCategoriaActualizar.setModel(new DefaultComboBoxModel());
+        cmbCategoriaAgregar.setModel(new DefaultComboBoxModel());
+        String query = "select * from categoria"; 
+        try{
+            cl.sendMessage(query);
+            String respuesta = cl.receiveMessage();
+            System.err.println("RES:"+respuesta);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+         
     }
 
     /**
@@ -40,29 +57,31 @@ public class ViewCompetidor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        txtNoBoletaActualizar = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         txtNombreActualizar = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtPesoActualizar = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtApActualizar = new javax.swing.JTextField();
+        txtEscuelaOrigenActualizar = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtAmActualizar = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        cmbCategoriaActualizar = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        txtIdCompetidorActualizar = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        txtNoBoletaBorrar = new javax.swing.JTextField();
+        txtIdCompetidorBorrar = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        txtNoBoletaConsultar = new javax.swing.JTextField();
+        txtIdCompetidorConsultar = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtNoBoleta = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtAp = new javax.swing.JTextField();
-        txtAm = new javax.swing.JTextField();
+        txtNombreAgregar = new javax.swing.JTextField();
+        txtPesoAgregar = new javax.swing.JTextField();
+        txtEscuelaOrigenAgregar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        cmbCategoriaAgregar = new javax.swing.JComboBox();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -72,30 +91,30 @@ public class ViewCompetidor extends javax.swing.JFrame {
         txtDatos.setRows(5);
         jScrollPane1.setViewportView(txtDatos);
 
-        jButton5.setText("Consultar Lista de Alumnos");
+        jButton5.setText("Consultar Lista de Competidores");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("NoBoleta");
+        jLabel2.setText("Id Competidor");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualizar Alumno"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualizar Competidor"));
 
-        jLabel7.setText("No Boleta");
+        jLabel7.setText("Nombre");
 
-        jLabel8.setText("Nombre");
+        jLabel8.setText("Peso");
 
-        jLabel9.setText("Paterno");
+        jLabel9.setText("Escuela Origen");
 
-        txtApActualizar.addActionListener(new java.awt.event.ActionListener() {
+        txtEscuelaOrigenActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApActualizarActionPerformed(evt);
+                txtEscuelaOrigenActualizarActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("Materno");
+        jLabel10.setText("Categoria");
 
         jButton2.setText("Actualizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +123,10 @@ public class ViewCompetidor extends javax.swing.JFrame {
             }
         });
 
+        cmbCategoriaActualizar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel12.setText("Id Competidor");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -111,48 +134,59 @@ public class ViewCompetidor extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 75, Short.MAX_VALUE))
-                    .addComponent(txtApActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtAmActualizar)
-                    .addComponent(txtNombreActualizar)
-                    .addComponent(txtNoBoletaActualizar))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(0, 75, Short.MAX_VALUE))
+                            .addComponent(txtEscuelaOrigenActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPesoActualizar)
+                            .addComponent(txtNombreActualizar)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(64, 64, 64)
+                        .addComponent(cmbCategoriaActualizar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(34, 34, 34)
+                        .addComponent(txtIdCompetidorActualizar)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtIdCompetidorActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtNoBoletaActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtNombreActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtApActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtEscuelaOrigenActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtAmActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbCategoriaActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addComponent(jButton2))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Borrar Alumno"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Borrar Competidor"));
 
-        jLabel11.setText("No Boleta");
+        jLabel11.setText("Id Competidor");
 
         jButton3.setText("Borrar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -167,12 +201,14 @@ public class ViewCompetidor extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtNoBoletaBorrar)))
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdCompetidorBorrar)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,25 +216,25 @@ public class ViewCompetidor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtNoBoletaBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdCompetidorBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Alumno"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Competidor"));
 
-        jLabel3.setText("No Boleta");
+        jLabel3.setText("Nombre");
 
-        jLabel4.setText("Nombre");
+        jLabel4.setText("Peso");
 
-        jLabel5.setText("Materno");
+        jLabel5.setText("Categoria");
 
-        jLabel6.setText("Paterno");
+        jLabel6.setText("Escuela Origen");
 
-        txtAp.addActionListener(new java.awt.event.ActionListener() {
+        txtEscuelaOrigenAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApActionPerformed(evt);
+                txtEscuelaOrigenAgregarActionPerformed(evt);
             }
         });
 
@@ -209,6 +245,8 @@ public class ViewCompetidor extends javax.swing.JFrame {
             }
         });
 
+        cmbCategoriaAgregar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -217,10 +255,13 @@ public class ViewCompetidor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre)
-                    .addComponent(txtNoBoleta)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(txtPesoAgregar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(txtNombreAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -229,9 +270,9 @@ public class ViewCompetidor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addComponent(txtAm)
-                    .addComponent(txtAp)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtEscuelaOrigenAgregar)
+                    .addComponent(cmbCategoriaAgregar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,20 +280,20 @@ public class ViewCompetidor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNoBoleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtAp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEscuelaOrigenAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtAm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbCategoriaAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -264,7 +305,7 @@ public class ViewCompetidor extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Consultar Alumno");
+        jLabel1.setText("Consultar Competidor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -285,7 +326,7 @@ public class ViewCompetidor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNoBoletaConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdCompetidorConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,11 +352,12 @@ public class ViewCompetidor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNoBoletaConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdCompetidorConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -333,27 +375,28 @@ public class ViewCompetidor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void txtApActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApActualizarActionPerformed
+    private void txtEscuelaOrigenActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEscuelaOrigenActualizarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtApActualizarActionPerformed
+    }//GEN-LAST:event_txtEscuelaOrigenActualizarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ArrayList<JTextField> campos = new ArrayList<>();
-        campos.add(txtNoBoletaActualizar);
+        campos.add(txtIdCompetidorActualizar);
         campos.add(txtNombreActualizar);
-        campos.add(txtApActualizar);
-        campos.add(txtAmActualizar);
+        campos.add(txtPesoActualizar);
+        campos.add(txtEscuelaOrigenActualizar);
+
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
             return ;
         }
-        String noBoleta = txtNoBoletaActualizar.getText();
-        String nombre = txtNombreActualizar.getText();
-        String ap = txtApActualizar.getText();
-        String am = txtAmActualizar.getText();
+        String idCompetidor = txtIdCompetidorActualizar.getText(); 
+        String noBoleta = txtNombreActualizar.getText();
+        String nombre = txtPesoActualizar.getText();
+        String ap = txtEscuelaOrigenActualizar.getText();
         String query = "";
-        query = "alumno,actualizar,"+noBoleta+","+nombre+","+ap+","+am;
+        query = "alumno,actualizar,"+noBoleta+","+nombre+","+ap+",";
 
         System.err.println("Query : "+query);
         try{
@@ -373,13 +416,13 @@ public class ViewCompetidor extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ArrayList<JTextField> campos = new ArrayList<>();
-        campos.add(txtNoBoletaBorrar);
+        campos.add(txtIdCompetidorBorrar);
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Falta campo por llenar");
             return ;
         }
-        String noBoleta = txtNoBoletaBorrar.getText();
+        String noBoleta = txtIdCompetidorBorrar.getText();
         String query ;
         query = "alumno,eliminar,"+noBoleta;
 
@@ -395,27 +438,25 @@ public class ViewCompetidor extends javax.swing.JFrame {
         limpiarCampos(campos);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void txtApActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApActionPerformed
+    private void txtEscuelaOrigenAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEscuelaOrigenAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtApActionPerformed
+    }//GEN-LAST:event_txtEscuelaOrigenAgregarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //consultar si todos los campos están llenos
         ArrayList<JTextField> campos = new ArrayList<>();
-        campos.add(txtNoBoleta);
-        campos.add(txtNombre);
-        campos.add(txtAp);
-        campos.add(txtAm);
+        campos.add(txtNombreAgregar);
+        campos.add(txtPesoAgregar);
+        campos.add(txtEscuelaOrigenAgregar);
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
             return ;
         }
-        String noBoleta = txtNoBoleta.getText();
-        String nombre = txtNombre.getText();
-        String ap = txtAp.getText();
-        String am = txtAm.getText();
-        String query = "insert into alumno values('"+noBoleta+"','"+nombre +"','"+ap+"','"+am+"')";
+        String noBoleta = txtNombreAgregar.getText();
+        String nombre = txtPesoAgregar.getText();
+        String ap = txtEscuelaOrigenAgregar.getText();
+        String query = "insert into alumno values('"+noBoleta+"','"+nombre +"','"+ap+"','')";
         /* //alumno, [agregar, elimanr, actualizar, consultarUno,consultarTodos],*/
         query = "alumno,agregar,"+noBoleta+","+nombre+","+ap+",am";
         System.err.println("Query : "+query);
@@ -436,13 +477,13 @@ public class ViewCompetidor extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ArrayList<JTextField> campos = new ArrayList<>();
-        campos.add(txtNoBoletaConsultar);
+        campos.add(txtIdCompetidorConsultar);
         allIsFill(campos);
         if(!allIsFill(campos)){
             JOptionPane.showMessageDialog(null, "Falta campo por llenar");
             return ;
         }
-        String noBoleta = txtNoBoletaConsultar.getText();
+        String noBoleta = txtIdCompetidorConsultar.getText();
         String query = "alumno,consultarUno,"+noBoleta;
         System.err.println("Query : "+query);
         try{
@@ -509,6 +550,8 @@ public class ViewCompetidor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbCategoriaActualizar;
+    private javax.swing.JComboBox cmbCategoriaAgregar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -517,6 +560,7 @@ public class ViewCompetidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -529,16 +573,15 @@ public class ViewCompetidor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtAm;
-    private javax.swing.JTextField txtAmActualizar;
-    private javax.swing.JTextField txtAp;
-    private javax.swing.JTextField txtApActualizar;
     private javax.swing.JTextArea txtDatos;
-    private javax.swing.JTextField txtNoBoleta;
-    private javax.swing.JTextField txtNoBoletaActualizar;
-    private javax.swing.JTextField txtNoBoletaBorrar;
-    private javax.swing.JTextField txtNoBoletaConsultar;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtEscuelaOrigenActualizar;
+    private javax.swing.JTextField txtEscuelaOrigenAgregar;
+    private javax.swing.JTextField txtIdCompetidorActualizar;
+    private javax.swing.JTextField txtIdCompetidorBorrar;
+    private javax.swing.JTextField txtIdCompetidorConsultar;
     private javax.swing.JTextField txtNombreActualizar;
+    private javax.swing.JTextField txtNombreAgregar;
+    private javax.swing.JTextField txtPesoActualizar;
+    private javax.swing.JTextField txtPesoAgregar;
     // End of variables declaration//GEN-END:variables
 }

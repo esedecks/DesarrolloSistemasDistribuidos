@@ -13,7 +13,7 @@ public class Cliente  {
     PrintWriter salida ; 
     BufferedReader entrada; 
     String manejador = ""; 
-    String[] manejadores = {"mySQL","PostgreSQL"}; 
+
     public Cliente(){
         
     }

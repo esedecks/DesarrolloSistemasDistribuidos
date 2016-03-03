@@ -19,7 +19,6 @@ public class Cliente  {
     }
 
     public void sendMessage(String msj)throws UnknownHostException, IOException{
-        System.err.println("Enviando mensaje"); 
         s = new Socket(host, PORT); 
         salida = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); 
         entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));

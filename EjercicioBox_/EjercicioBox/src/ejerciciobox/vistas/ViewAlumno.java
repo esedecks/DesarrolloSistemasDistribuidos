@@ -347,7 +347,7 @@ public class ViewAlumno extends javax.swing.JFrame {
         String am = txtAm.getText(); 
         String query = "insert into alumno values('"+noBoleta+"','"+nombre +"','"+ap+"','"+am+"')";
         /* //alumno, [agregar, elimanr, actualizar, consultarUno,consultarTodos],*/
-        query = "alumno,agregar,"+noBoleta+","+nombre+","+ap+",am"; 
+        query = "alumno,agregar,"+noBoleta+","+nombre+","+ap+","+am; 
         System.err.println("Query : "+query); 
         try{
             cl.sendMessage(query);
