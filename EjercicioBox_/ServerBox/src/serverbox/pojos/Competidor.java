@@ -84,7 +84,7 @@ public class Competidor {
     public String toString(){
         return "idCompetidor: "+this.idCompetidor+"\n"+
                 "nombre: "+this.nombre+"\n"+
-                "peso: "+this.peso+"\n"+"\n"+
+                "peso: "+this.peso+"\n"+
                 "idCategoria: "+this.idCategoria+"\n"+
                 "Escuela de origen: "+this.escuelaOrigen; 
     }

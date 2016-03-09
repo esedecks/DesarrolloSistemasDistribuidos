@@ -36,6 +36,17 @@ public class ViewCompetidor extends javax.swing.JFrame {
             cl.sendMessage(query);
             String respuesta = cl.receiveMessage();
             System.err.println("RES:"+respuesta);
+            String elemento ; 
+            //descomponer en lineas
+            String[] lineas = respuesta.split("\\r?\\n");
+            int i = 0; 
+            for(String linea : lineas){
+                String[] tokens = linea.split("\\|");
+                if(i== 0){i++ ; continue;} 
+                elemento = tokens[1]+"-"+tokens[2];  
+                cmbCategoriaActualizar.addItem(elemento);
+                cmbCategoriaAgregar.addItem(elemento);
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -364,7 +375,7 @@ public class ViewCompetidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String query = "alumno,consultarTodo";
+        String query = "competidor,consultarTodo";
         try{
             cl.sendMessage(query);
             String respuesta = cl.receiveMessage();
@@ -392,11 +403,13 @@ public class ViewCompetidor extends javax.swing.JFrame {
             return ;
         }
         String idCompetidor = txtIdCompetidorActualizar.getText(); 
-        String noBoleta = txtNombreActualizar.getText();
-        String nombre = txtPesoActualizar.getText();
-        String ap = txtEscuelaOrigenActualizar.getText();
-        String query = "";
-        query = "alumno,actualizar,"+noBoleta+","+nombre+","+ap+",";
+        String nombre = txtNombreActualizar.getText();
+        String peso = txtPesoActualizar.getText();
+        String escuela = txtEscuelaOrigenActualizar.getText();
+        String categoria =(String) cmbCategoriaActualizar.getItemAt(cmbCategoriaActualizar.getSelectedIndex()); 
+        int id = getIdCategoria(categoria); 
+        String query;
+        query = "competidor,actualizar,"+idCompetidor+","+nombre+","+peso+","+escuela+","+id;
 
         System.err.println("Query : "+query);
         try{
@@ -422,9 +435,9 @@ public class ViewCompetidor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Falta campo por llenar");
             return ;
         }
-        String noBoleta = txtIdCompetidorBorrar.getText();
+        String idCompetidor = txtIdCompetidorBorrar.getText();
         String query ;
-        query = "alumno,eliminar,"+noBoleta;
+        query = "competidor,eliminar,"+idCompetidor;
 
         System.err.println("Query : "+query);
         try{
@@ -453,12 +466,15 @@ public class ViewCompetidor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
             return ;
         }
-        String noBoleta = txtNombreAgregar.getText();
-        String nombre = txtPesoAgregar.getText();
-        String ap = txtEscuelaOrigenAgregar.getText();
-        String query = "insert into alumno values('"+noBoleta+"','"+nombre +"','"+ap+"','')";
+        String nombre = txtNombreAgregar.getText();
+        String peso = txtPesoAgregar.getText();
+        String escuela = txtEscuelaOrigenAgregar.getText();
+        String categoria =(String) cmbCategoriaAgregar.getItemAt(cmbCategoriaAgregar.getSelectedIndex()); 
+        ///obtener el id de categoria en función del competidor
+        int idCategoria = getIdCategoria(categoria); 
+        String query ;
         /* //alumno, [agregar, elimanr, actualizar, consultarUno,consultarTodos],*/
-        query = "alumno,agregar,"+noBoleta+","+nombre+","+ap+",am";
+        query = "competidor,agregar,"+nombre+","+peso+","+escuela+","+idCategoria;
         System.err.println("Query : "+query);
         try{
             cl.sendMessage(query);
@@ -474,7 +490,25 @@ public class ViewCompetidor extends javax.swing.JFrame {
         }
         limpiarCampos(campos);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private int getIdCategoria(String categoria){
+        String[] token = categoria.split("-"); 
+        int n = 0; 
+        try{
+            String query = "select idCategoria from categoria where nombre = '"+token[0]+"'"; 
+            cl.sendMessage(query);
+            String respuesta = cl.receiveMessage(); 
+            System.err.println("El id de la categoria que se seleccionó fue"+ respuesta); 
+            String[] line = respuesta.split("\\r?\\n"); 
+            
+            //QUITAR EL PIPE
+            respuesta = line[1].replace("|", ""); 
+            n = Integer.parseInt(respuesta); 
+            System.out.println("--"+n); 
+        }catch(Exception e){
+            e.printStackTrace();; 
+                }
+        return n; 
+    }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ArrayList<JTextField> campos = new ArrayList<>();
         campos.add(txtIdCompetidorConsultar);
@@ -483,8 +517,8 @@ public class ViewCompetidor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Falta campo por llenar");
             return ;
         }
-        String noBoleta = txtIdCompetidorConsultar.getText();
-        String query = "alumno,consultarUno,"+noBoleta;
+        String idCompetidor = txtIdCompetidorConsultar.getText();
+        String query = "competidor,consultarUno,"+idCompetidor;
         System.err.println("Query : "+query);
         try{
             cl.sendMessage(query);

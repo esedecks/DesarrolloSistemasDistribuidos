@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/ViewAlumno.java</file>
-            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/Main.java</file>
             <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/Splash.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/Login.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/ViewCompetidor.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/ViewUsuario.java</file>
+            <file>file:/home/esedecks/github/DesarrolloSistemasDistribuidos/EjercicioBox_/EjercicioBox/src/ejerciciobox/vistas/ViewAlumno.java</file>
         </group>
     </open-files>
 </project-private>

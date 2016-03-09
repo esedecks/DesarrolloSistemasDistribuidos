@@ -252,15 +252,17 @@ public class SQLConexion extends Thread {
              String columna = resultadoMetadata.getColumnName(j+1); 
              sb.append(columna);
              sb.append("|"); 
-            sb.append("\r\n");
+           
         }
+         sb.append("\r\n");
         salida.print(sb.toString()); 
         String registro = ""; 
         while(existenMasFilas){
             for(i =0; i<numeroColumnas; i++){
                 registro = registro.concat(rs.getString(i+1) + "|"); 
-                registro = registro.concat("\r\n"); 
+                
             }
+            registro = registro.concat("\r\n");
             existenMasFilas = rs.next(); 
                 
         }
