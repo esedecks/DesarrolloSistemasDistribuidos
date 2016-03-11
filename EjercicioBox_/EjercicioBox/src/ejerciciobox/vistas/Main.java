@@ -6,6 +6,7 @@
 package ejerciciobox.vistas;
 
 import ejerciciobox.Cliente;
+import javax.swing.JOptionPane;
 
 
 
@@ -15,7 +16,7 @@ public class Main extends javax.swing.JFrame   {
     ViewAlumno valumno; 
     ViewCategoria vcategoria; 
     ViewCompetidor vcompetidor; 
-    ViewUsuario vusuario; 
+    
     public Main() {
         initComponents();
 
@@ -27,6 +28,8 @@ public class Main extends javax.swing.JFrame   {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -34,11 +37,15 @@ public class Main extends javax.swing.JFrame   {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ejerciciobox/vistas/box.jpg"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setText("Bienvenido a la escuela de Box");
 
         jMenu1.setText("Archivo");
 
@@ -78,19 +85,16 @@ public class Main extends javax.swing.JFrame   {
         });
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setText("Usuarios");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Ayuda");
 
-        jMenuItem1.setText("Acerca de");
+        jMenuItem1.setText("Necesita Ayuda? ");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
@@ -101,18 +105,31 @@ public class Main extends javax.swing.JFrame   {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 771, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        System.exit(1); 
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -131,10 +148,13 @@ public class Main extends javax.swing.JFrame   {
         vcompetidor.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        vusuario = new ViewUsuario(cliente); 
-        vusuario.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        String instrucciones ="Para iniciar seleccione la pestaña form\n"+
+                              "puede dar click a cualquiera de los formularios para comenzar a\n"+
+                              "agregar modificar, eliminar o consultar cada uno de los datos\n"
+                              +"si tiene dudas comuniquese con: jdecks.visible@outlook.com";  
+        JOptionPane.showMessageDialog(null,instrucciones);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
    
     /**
@@ -174,6 +194,8 @@ public class Main extends javax.swing.JFrame   {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -183,7 +205,6 @@ public class Main extends javax.swing.JFrame   {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 
   
