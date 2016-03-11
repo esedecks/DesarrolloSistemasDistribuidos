@@ -143,6 +143,7 @@ public class ProductoDAO {
             cn = Conexion.getConnextion(); 
             cs = cn.prepareCall("{CALL mostrarProductos()}"); 
             rs = cs.executeQuery(); 
+            cn.setAutoCommit(true);
             while(rs.next()){
                 Producto p = new Producto(); 
                 p.setIdProducto(rs.getInt("idProducto"));

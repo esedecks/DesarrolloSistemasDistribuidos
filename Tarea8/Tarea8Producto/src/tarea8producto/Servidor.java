@@ -31,18 +31,18 @@ public class Servidor {
             //insertar
             String[] elementos = cadena.split(","); 
             Producto p = new Producto (Integer.parseInt(elementos[0]),elementos[1],Double.parseDouble(elementos[2])); 
-            respuesta = ProductoDAO.insertarProducto(p); 
+            //respuesta = ProductoDAO.insertarProducto(p); 
 //            salida.println(respuesta);
 //            salida.flush(); 
             //actualizar 
-            respuesta = ProductoDAO.actualizarProducto(p); 
-            salida.println(respuesta);
-            salida.flush(); 
-            System.err.println("Se mando respuesta"); 
+           // respuesta = ProductoDAO.actualizarProducto(p); 
+            //salida.println(respuesta);
+           // salida.flush(); 
+           // System.err.println("Se mando respuesta"); 
             //eliminar 
-//            respuesta = ProductoDAO.borrarProducto(p); 
-//            salida.println(respuesta);
-//            salida.flush();
+           // respuesta = ProductoDAO.borrarProducto(p); 
+           // salida.println(respuesta);
+           // salida.flush();
             //consultarUnProducto
 //            Producto ptemp ; 
 //            ptemp = ProductoDAO.mostrarProducto(p); 
@@ -55,8 +55,8 @@ public class Servidor {
                 sb.append(pt.toString()); 
                 sb.append("\r\n"); 
             }
-//            salida.println(sb.toString());
-//            salida.flush();
+            salida.println(sb.toString());
+            salida.flush();
         }catch(Exception e){
             e.printStackTrace();
         }
