@@ -1,0 +1,3 @@
+grant codeBase "file:/home/esedecks/github/DesarrolloSistemasDistribuidos/Tarea13/Servidor/src/servidor/"{
+    permission java.security.AllPermission;
+};
