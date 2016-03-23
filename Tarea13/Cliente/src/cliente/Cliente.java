@@ -6,9 +6,7 @@
 package cliente;
 
 import interfazrmi.OperacionesRemota;
-import static java.lang.System.setSecurityManager;
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 

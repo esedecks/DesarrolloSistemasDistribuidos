@@ -3,31 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidor;
+package servidorrmi;
 
-import interfazrmi.OperacionesRemota;
+import interfazrmi.MetodosRemotos;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Date;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author esedecks
  */
-public class Servidor {
+public class ServidorRMI {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try{
+        try {
             Registry registry = LocateRegistry.createRegistry( 1099 );
-            OperacionesRemota op = (OperacionesRemota) new Operaciones(); 
-            registry.rebind("rmiServer", op);
-            System.out.println("Servidor RMI listo : "+new Date()); 
-        }catch(Exception e){
-            e.printStackTrace();
+            MetodosRemotos op = (MetodosRemotos) new Metodos();
+            registry.rebind("rmiServer", op); 
+            System.out.println("Servidor RMI listo : "+new Date());
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
         }
     }
     
