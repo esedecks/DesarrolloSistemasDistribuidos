@@ -17,5 +17,9 @@ public interface MetodosRemotos extends Remote {
     public boolean autenticarUsuario(String usuario,String password) throws RemoteException; 
     public boolean insertarProducto(String descripcion,String existencias,String precio) throws RemoteException; 
     public String leerArticulos() throws RemoteException; 
-
+    public boolean eliminarArticulo(String nombre ) throws RemoteException; 
+    public String leerInfoArticulo(String nombre ) throws RemoteException; 
+    public boolean actualizarArticulo(String descripcion,String existencias, String precio,String nombreAnterior) throws RemoteException; 
+    public boolean realizarMovimiento(String nombreArticulo,String tipoMovimiento, String cantidad) throws RemoteException; 
+    public String leerInfoForChart() throws RemoteException; 
 }

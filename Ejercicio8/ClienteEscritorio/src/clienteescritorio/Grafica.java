@@ -6,17 +6,23 @@
 package clienteescritorio;
 
 import interfazrmi.MetodosRemotos;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
  * @author esedecks
  */
-public class Grafica extends javax.swing.JFrame {
+public class Grafica extends ChartFrame {
 
     MetodosRemotos metodosRemotos; 
     
-    public Grafica() {
+    public Grafica(String titulo, JFreeChart chart) {
+        super(titulo, chart );
         initComponents();
+        
     }
 
     public MetodosRemotos getMetodosRemotos() {
@@ -26,6 +32,7 @@ public class Grafica extends javax.swing.JFrame {
     public void setMetodosRemotos(MetodosRemotos metodosRemotos) {
         this.metodosRemotos = metodosRemotos;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,17 +58,15 @@ public class Grafica extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jButton1)
-                .addContainerGap(205, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 734, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(0, 270, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
 
         pack();
@@ -102,7 +107,7 @@ public class Grafica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Grafica().setVisible(true);
+                //new Grafica().setVisible(true);
             }
         });
     }

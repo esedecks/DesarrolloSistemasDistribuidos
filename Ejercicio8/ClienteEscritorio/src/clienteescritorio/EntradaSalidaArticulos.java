@@ -6,6 +6,10 @@
 package clienteescritorio;
 
 import interfazrmi.MetodosRemotos;
+import java.rmi.RemoteException;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,12 +25,38 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
         initComponents();
     }
 
+    public EntradaSalidaArticulos(MetodosRemotos metodosRemotos) {
+        initComponents();
+        this.metodosRemotos = metodosRemotos; 
+        actualizarListaArticulos();
+        rdbtnEntrada.setSelected(true);
+    }
     public MetodosRemotos getMetodosRemotos() {
         return metodosRemotos;
     }
 
     public void setMetodosRemotos(MetodosRemotos metodosRemotos) {
         this.metodosRemotos = metodosRemotos;
+    }
+     private void actualizarListaArticulos(){
+        cmbListaProductos.setModel(new DefaultComboBoxModel());
+        try { 
+            String articulos = metodosRemotos.leerArticulos();
+            if(articulos.contains("noDatos")){
+                cmbListaProductos.addItem("No hay articulos");
+            }else{
+                //System.err.println("La lista de articulos son : "); 
+                //System.out.println(articulos); 
+                String[] articulosArray = articulos.split("\\r?\\n"); 
+                for(String articuloString : articulosArray){
+                    articuloString = articuloString.replace('|','\0'); 
+                    cmbListaProductos.addItem(articuloString);
+                }
+            }
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+    
     }
 
     /**
@@ -42,12 +72,16 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
+        cmbListaProductos = new javax.swing.JComboBox();
+        rdbtnEntrada = new javax.swing.JRadioButton();
+        rdbtnSalida = new javax.swing.JRadioButton();
+        txtCantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        lblPrecio = new javax.swing.JLabel();
+        lblExistencias = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,13 +91,18 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
 
         jLabel3.setText("Existencias");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbListaProductos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbListaProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbListaProductosActionPerformed(evt);
+            }
+        });
 
-        btnGrupo1.add(jRadioButton1);
-        jRadioButton1.setText("Entrada");
+        btnGrupo1.add(rdbtnEntrada);
+        rdbtnEntrada.setText("Entrada");
 
-        btnGrupo1.add(jRadioButton2);
-        jRadioButton2.setText("Salida");
+        btnGrupo1.add(rdbtnSalida);
+        rdbtnSalida.setText("Salida");
 
         jLabel4.setText("Cantidad");
 
@@ -73,6 +112,19 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        lblPrecio.setText("jLabel5");
+
+        lblExistencias.setText("jLabel5");
+
+        jButton2.setText("Realizar Movimiento");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Seleccione el tipo de movimiento");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,23 +136,31 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
+                        .addComponent(cmbListaProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(30, 30, 30)
-                                .addComponent(jRadioButton2))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(131, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(157, 157, 157))
+                                .addComponent(jLabel2)
+                                .addGap(50, 50, 50)
+                                .addComponent(lblPrecio))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblExistencias))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdbtnEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbtnSalida))
+                            .addComponent(jLabel5))
+                        .addGap(0, 119, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,20 +168,28 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblPrecio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jLabel3)
+                    .addComponent(lblExistencias))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbtnEntrada)
+                    .addComponent(rdbtnSalida))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
 
@@ -133,6 +201,62 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
         this.dispose();
                 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cmbListaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbListaProductosActionPerformed
+        String elemento = (String)cmbListaProductos.getItemAt(cmbListaProductos.getSelectedIndex()); 
+        elemento = elemento.trim(); 
+        try { 
+            String info = metodosRemotos.leerInfoArticulo(elemento);
+            String[] tokens = info.split("\\|"); 
+            //txtDescripcionActualizar.setText(tokens[1]);
+            lblPrecio.setText(tokens[2]+ " Pesos");
+            lblExistencias.setText(tokens[3]+ " Unidades ");
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_cmbListaProductosActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String cantidad  = txtCantidad.getText();
+        String tipoMovimiento ; 
+        String nombreArticulo =(String) cmbListaProductos.getItemAt(cmbListaProductos.getSelectedIndex()); 
+        nombreArticulo = nombreArticulo.trim(); 
+        try{
+            
+            if(rdbtnEntrada.isSelected()){
+                tipoMovimiento = "entrada"; 
+                boolean res = metodosRemotos.realizarMovimiento(nombreArticulo, tipoMovimiento, cantidad); 
+                if(res)
+                    JOptionPane.showMessageDialog(rootPane, "SE agregaron "+cantidad + "pieza(s) al producto "+nombreArticulo);
+                else 
+                    JOptionPane.showMessageDialog(rootPane, "NO se agregaron "+cantidad + "pieza(s) al producto "+nombreArticulo);
+            }else{
+                tipoMovimiento = "salida";
+                // si se requiere hacer salida hay que ver que sea posible 
+                // leer la cantidad actual
+                String existentes = lblExistencias.getText(); 
+                existentes = existentes.substring(0, existentes.indexOf(' '));
+                int piezasExistentes = Integer.parseInt(existentes); 
+                int cantidadSolicitadas = Integer.parseInt(cantidad); 
+                if(cantidadSolicitadas > piezasExistentes){
+                    //no se puede hacer la trbasaccion se salida
+                    JOptionPane.showMessageDialog(rootPane, "No se puede hacer la salida hay una solicitud de piezas mayor a las existentes");
+                    return ; 
+                }else{
+                    boolean res= metodosRemotos.realizarMovimiento(nombreArticulo, tipoMovimiento, cantidad); 
+                    if(res){
+                        JOptionPane.showMessageDialog(rootPane, "Se dieron de baja "+cantidad + "pieza(s) al producto "+nombreArticulo);
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "NO se pudo dar de baja "+cantidad + "pieza(s) al producto "+nombreArticulo);
+
+                    }
+                }
+            }//fin if
+        }catch(RemoteException ex){ex.printStackTrace();}
+        txtCantidad.setText("");
+        cmbListaProductos.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,14 +295,18 @@ public class EntradaSalidaArticulos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGrupo1;
+    private javax.swing.JComboBox cmbListaProductos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblExistencias;
+    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JRadioButton rdbtnEntrada;
+    private javax.swing.JRadioButton rdbtnSalida;
+    private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }

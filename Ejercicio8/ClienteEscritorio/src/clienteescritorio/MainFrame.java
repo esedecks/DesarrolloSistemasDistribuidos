@@ -6,7 +6,14 @@
 package clienteescritorio;
 
 import interfazrmi.MetodosRemotos;
+import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -142,10 +149,37 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private DefaultPieDataset getDataForChart(){
+        DefaultPieDataset data = new DefaultPieDataset();
+        try { 
+            String datos = metodosRemotos.leerInfoForChart();
+            String[] lines = datos.split("\\r?\\n"); 
+            for(String line : lines){
+                String[] tokens  = line.split("\\|"); 
+                int movimientos = Integer.parseInt(tokens[1].trim()); 
+                data.setValue(tokens[0]+" tiene "+movimientos+" movimientos",movimientos);
+            }
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+        return data; 
+    }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        graficaWindow = new Grafica(); 
+        DefaultPieDataset data = this.getDataForChart();
+        /*data.setValue("Category 1", 43.2);
+        data.setValue("Category 2", 27.9);
+        data.setValue("Category 3", 79.5);*/
+        // create a chart...
+        JFreeChart chart = ChartFactory.createPieChart(
+        "Gráfica de movimientos",data,true,true,true);
+        /*
+        SELECT a.descripcion,count(ma.idArticulo)
+        FROM movArticulo ma, articulo a 
+        where a.idArticulo = ma.idArticulo group by a.descripcion; 
+        */
+        graficaWindow = new Grafica("Gráfica", chart); 
         graficaWindow.setVisible(true);
+        graficaWindow.pack();
         graficaWindow.setMetodosRemotos(metodosRemotos);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -160,7 +194,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        entradasalidaWindow = new EntradaSalidaArticulos(); 
+        entradasalidaWindow = new EntradaSalidaArticulos(metodosRemotos); 
         entradasalidaWindow.setVisible(true);
         entradasalidaWindow.setMetodosRemotos(metodosRemotos);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
