@@ -6,10 +6,13 @@
 package clienteescritorio;
 
 import interfazrmi.MetodosRemotos;
-import org.jfree.chart.ChartFactory;
+import java.awt.Desktop;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import org.jfree.chart.ChartUtilities;
 
 /**
  *
@@ -18,9 +21,12 @@ import org.jfree.data.general.DefaultPieDataset;
 public class Grafica extends ChartFrame {
 
     MetodosRemotos metodosRemotos; 
-    
+    JFreeChart chart ; 
     public Grafica(String titulo, JFreeChart chart) {
+        
         super(titulo, chart );
+        this.setBounds(250, 200, 100, 50);
+        this.chart = chart;
         initComponents();
         
     }
@@ -43,9 +49,17 @@ public class Grafica extends ChartFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton2.setText("Generar Imagen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Cerrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -58,15 +72,19 @@ public class Grafica extends ChartFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 734, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(605, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 270, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addContainerGap(319, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)))
         );
 
         pack();
@@ -76,6 +94,29 @@ public class Grafica extends ChartFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       try {
+            String directorio = System.getProperty("user.dir")+"/temporal/";
+            String imagen = "grafica.png"; 
+            String so = System.getProperty("os.name"); 
+            System.err.println("El sso "+so); 
+            File f = new File(directorio+imagen); 
+            ChartUtilities.saveChartAsPNG(f, chart, 600, 400);
+            Runtime run = Runtime.getRuntime();
+            if(so.equals("Linux"))
+                run.exec("eog "+directorio+imagen ); 
+            else {
+                Desktop dt = Desktop.getDesktop();
+                dt.open(f);
+            }
+       } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "No se pudo guardar la gráfica :(, Inténtelo más tarde!");
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,5 +155,6 @@ public class Grafica extends ChartFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

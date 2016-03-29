@@ -7,7 +7,7 @@
 <%@page import="interfazrmi.MetodosRemotos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.rmi.registry.Registry"%>
- <%@ page import="java.rmi.registry.LocateRegistry"%>
+<%@ page import="java.rmi.registry.LocateRegistry"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,10 +28,9 @@
         <form action="Controlador" method="POST">
             Usuario:<br>
             <input type="text" name="usuario"><br>
-             Contraseña:<br>
-             <input type="password" name="password"><br/>
-            <input type="submit" value="Log in">
-           
+            Contraseña:<br>
+            <input type="password" name="password"><br/>
+            <input type="submit" name ="login" value="Log in">
         </form> 
     </body>
 </html>

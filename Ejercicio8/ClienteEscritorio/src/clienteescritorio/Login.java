@@ -5,14 +5,18 @@
  */
 package clienteescritorio;
 
+import com.jtattoo.plaf.smart.SmartLookAndFeel;
 import interfazrmi.MetodosRemotos;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -121,9 +125,8 @@ public class Login extends javax.swing.JFrame {
             if(val){
                 this.usuario = user; 
                JOptionPane.showMessageDialog(rootPane, "Bienvenido "+user);
-               MainFrame principalWindow = new MainFrame(this.usuario); 
+               MainFrame principalWindow = new MainFrame(this.usuario,metodosRemotos); 
                principalWindow.setVisible(true);
-               principalWindow.setMetodosRemotos(metodosRemotos);
                principalWindow.setUsuario(this.usuario);
                this.setVisible(false);
             }else{
@@ -168,6 +171,20 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                   // setTheme(String themeName, String licenseKey, String logoString)
+                  com.jtattoo.plaf.hifi.HiFiLookAndFeel.setTheme("Black");
+                    // select the Look and Feel
+                  UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (InstantiationException ex) {
+                    ex.printStackTrace();
+                } catch (IllegalAccessException ex) {
+                    ex.printStackTrace();
+                } catch (UnsupportedLookAndFeelException ex) {
+                    ex.printStackTrace();
+                }
                 new Login().setVisible(true);
             }
         });

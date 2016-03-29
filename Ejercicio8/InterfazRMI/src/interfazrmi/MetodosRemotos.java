@@ -22,4 +22,6 @@ public interface MetodosRemotos extends Remote {
     public boolean actualizarArticulo(String descripcion,String existencias, String precio,String nombreAnterior) throws RemoteException; 
     public boolean realizarMovimiento(String nombreArticulo,String tipoMovimiento, String cantidad) throws RemoteException; 
     public String leerInfoForChart() throws RemoteException; 
+    public String getCorreoUsuario(String usuario) throws RemoteException; 
+    public String leerNoExistencias (String descripcion)throws RemoteException; 
 }

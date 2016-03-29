@@ -9,9 +9,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Mensaje</title>
     </head>
     <body>
-        <h1>Error de autenticación!</h1>
+        <h1><% out.print(session.getAttribute("tituloError")); %></h1>
+        <p>Mensaje: <% out.print(session.getAttribute("mensajeError")); %></p>
+        <p>Ir a las siguientes páginas</p>
+        <ul >
+            <li><a href ="bienvenido.jsp">Página de inicio.</a></li>
+            <li><a href ="AdministracionArticulos.jsp"> Administración de articulos.</a></li>
+            <li><a href ="EntradaSalidaArticulos.jsp"> Administación de entrada y salida de articulos.</a></li>
+        </ul>
     </body>
 </html>

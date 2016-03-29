@@ -8,7 +8,6 @@ package servidorrmi;
 import interfazrmi.MetodosRemotos;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Date;
 import modelo.SQLConexion;
 
 /**
@@ -85,7 +84,7 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
         String consulta = "update articulo "
                         + "set descripcion ='"+descripcion+"', precio='"+precio+"', existencias = '"+existencias+"'"
                         +" where descripcion = '"+nombreAnterior+"'";
-        //System.err.println("La consulta queda como "+consulta); 
+        System.err.println("La consulta queda como "+consulta); 
         conexionBD = new SQLConexion();
     
         conexionBD.setConsulta(consulta);
@@ -136,6 +135,29 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
         System.err.println("El resultado es: "+resultado ); 
         return resultado;     
        
+    }
+
+    @Override
+    public String getCorreoUsuario(String usuario) throws RemoteException {
+        conexionBD = new SQLConexion();
+        String consulta = "select correo\n" +
+                          " from usuario where usuario ='"+usuario+"'"; 
+        conexionBD.setConsulta(consulta);
+        conexionBD.ejecutarSQL();
+        String resultado = conexionBD.getResultado(); 
+        System.err.println("El resultado es: "+resultado ); 
+        return resultado;   
+    }
+
+    @Override
+    public String leerNoExistencias(String descripcion) throws RemoteException {
+        conexionBD = new SQLConexion();
+        String consulta = "select existencias from articulo where descripcion = '"+descripcion+ "'";
+        conexionBD.setConsulta(consulta);
+        conexionBD.ejecutarSQL();
+        String resultado = conexionBD.getResultado(); 
+        System.err.println("El resultado es: "+resultado ); 
+        return resultado;   
     }
     
 }
