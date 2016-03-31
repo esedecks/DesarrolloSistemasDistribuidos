@@ -16,9 +16,16 @@
         <p>Mensaje: <% out.print(session.getAttribute("mensajeError")); %></p>
         <p>Ir a las siguientes páginas</p>
         <ul >
-            <li><a href ="bienvenido.jsp">Página de inicio.</a></li>
-            <li><a href ="AdministracionArticulos.jsp"> Administración de articulos.</a></li>
-            <li><a href ="EntradaSalidaArticulos.jsp"> Administación de entrada y salida de articulos.</a></li>
+            <%
+             if(((String)session.getAttribute("tituloError")).equals("Error en login")){
+                out.println("Si no recuerda sus datos comuniquese con jdecks.visible@outlook.com"); 
+             }else{
+                out.println("<li><a href =\"bienvenido.jsp\">Página de inicio.</a></li>"); 
+                out.println("<li><a href =\"AdministracionArticulos.jsp\"> Administración de articulos.</a></li>"); 
+                out.println("<li><a href =\"EntradaSalidaArticulos.jsp\"> Administación de entrada y salida de articulos.</a></li>"); 
+             }
+            %>
+           
         </ul>
     </body>
 </html>

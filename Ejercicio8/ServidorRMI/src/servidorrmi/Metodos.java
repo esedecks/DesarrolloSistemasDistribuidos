@@ -159,5 +159,27 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
         System.err.println("El resultado es: "+resultado ); 
         return resultado;   
     }
+
+    @Override
+    public String getReporte() throws RemoteException {
+        conexionBD = new SQLConexion();
+        String consulta = "select descripcion, precio, existencias  from articulo";
+        conexionBD.setConsulta(consulta);
+        conexionBD.ejecutarSQL();
+        StringBuilder res = new StringBuilder(); 
+        res.append( conexionBD.getResultado()); 
+        res.append("-"); 
+        consulta = "select a.descripcion, mv.fechaMovimiento,\n" +
+                            " mv.tipo, mv.cantidad  \n" +
+                            " from articulo a, movArticulo mv\n" +
+                            " where a.idArticulo = mv.idArticulo\n" +
+                            " order by a.descripcion; ";
+        conexionBD.setConsulta(consulta);
+        conexionBD.ejecutarSQL();
+        res.append( conexionBD.getResultado());
+        System.err.println("El resultado es: "+res.toString() ); 
+        return res.toString();   
+    
+    }
     
 }

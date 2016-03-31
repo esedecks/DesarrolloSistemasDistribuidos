@@ -7,6 +7,7 @@ import interfazrmi.MetodosRemotos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class Controlador extends HttpServlet {
     HttpSession sesion; 
     String mensajeError;
     String tituloError; 
+    String imagen = "grafica.png"; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -97,13 +99,46 @@ public class Controlador extends HttpServlet {
 
             }else if(request.getParameter("entradaSalidaArticulo")!=null){
                 atenderEntradaSalidaArticulo();
+            }else if(request.getParameter("btnEnviarGrafica")!=null){
+                System.err.println("Entra aquí");
+                atenderEnviarCorreo();
             }
             else{
-        
+                
             }
         }catch(RemoteException ex){
             ex.printStackTrace();
         }
+    }
+    private void atenderEnviarCorreo() throws IOException{
+        String correo = request.getParameter("correoUsuario");
+        correo = correo.trim(); 
+        System.err.println("El correo es: "+correo);
+        MotorDeEmails.prepararMotor();
+        java.sql.Date fecha = new java.sql.Date(new Date().getTime()); 
+        String mensaje = "Solicitó la gráfica generada a la fecha presente\n\r Muchas gracias por utilizar nuestro servicio"+
+                                "Att: Ariel Adauta García Presidente de la Empresa de articulos :)"; 
+        
+        MotorDeEmails.setTo(correo);
+        String imagen = "grafica.png"; 
+        String path = getServletContext().getRealPath("/"); 
+        boolean res = MotorDeEmails.enviarEmailconArchivo("Gráfica "+fecha,mensaje, path+imagen);
+        if(res){
+            tituloError ="Se envió la gráfica"; 
+            sesion.setAttribute("tituloError", tituloError);
+            mensajeError="Se envió la gráfica al correo "+correo; 
+            sesion.setAttribute("mensajeError", mensajeError);
+            response.sendRedirect("error.jsp");
+           
+        }else{
+            tituloError ="No se pudo enviar la gráfica"; 
+            sesion.setAttribute("tituloError", tituloError);
+            mensajeError="No se pudo enviar la gráfica al correo "+correo; 
+            sesion.setAttribute("mensajeError", mensajeError);
+            response.sendRedirect("error.jsp");
+        }
+
+        
     }
     private void atenderEntradaSalidaArticulo() throws RemoteException, IOException{
         String nombreArticulo = request.getParameter("cmbElementos"); 
@@ -236,10 +271,16 @@ public class Controlador extends HttpServlet {
         String password = request.getParameter("password");
         System.err.println("Usuari"+usuario+ " Password "+ password); 
         boolean resultado = metodosRemotos.autenticarUsuario(usuario, password); 
+       
         System.err.println("El resultado  es: "+resultado); 
         if(resultado == true){
             sesion.setAttribute("usuarioName", usuario);
+            String correo= metodosRemotos.getCorreoUsuario(usuario);
+            correo = correo.replace('|', ' ').trim(); 
+            sesion.setAttribute("correoUsuario", correo);
+            System.err.println("El correo del usuario es: "+correo); 
             response.sendRedirect("bienvenido.jsp");
+            
         }else{
             tituloError = "Error en login"; 
             sesion.setAttribute("tituloError", tituloError);

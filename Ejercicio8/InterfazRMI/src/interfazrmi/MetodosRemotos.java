@@ -24,4 +24,5 @@ public interface MetodosRemotos extends Remote {
     public String leerInfoForChart() throws RemoteException; 
     public String getCorreoUsuario(String usuario) throws RemoteException; 
     public String leerNoExistencias (String descripcion)throws RemoteException; 
+    public String getReporte () throws RemoteException; 
 }
