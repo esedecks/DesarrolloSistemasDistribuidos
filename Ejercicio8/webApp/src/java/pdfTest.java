@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pdf;
+
 
 /**
  *
@@ -32,7 +32,7 @@ import java.util.Date;
  
 public class pdfTest
 {
-   public static boolean generarPDFReporte(MetodosRemotos metodosRemotos) {
+   public static boolean generarPDFReporte(MetodosRemotos metodosRemotos,String path) {
     try
         {
   
@@ -71,9 +71,9 @@ public class pdfTest
             String[] listaArticulos = metodosRemotos.leerArticulos().split("\\r?\\n");
             for(String articulo : listaArticulos){
                 articulo = articulo.replace('|',' '); 
-                System.err.println("articulo :"+articulo); 
+              //  System.err.println("articulo :"+articulo); 
                 String info = metodosRemotos.leerInfoArticulo(articulo);
-                System.err.println("info :"+info); 
+                //System.err.println("info :"+info); 
                 String[] tokens = info.split("\\|"); 
                 sb.append("<tr>");
                 sb.append("<td>"+tokens[1]+"</td><td>"+tokens[2]+"</td><td>"+tokens[3] +"</td>\n"); 
@@ -109,15 +109,16 @@ public class pdfTest
             sb.append("</body> </html>\n"); 
             System.err.println(""+sb.toString());
         
-            OutputStream file = new FileOutputStream(new File("./temporal/Reporte.pdf"));
+            OutputStream file = new FileOutputStream(new File(path+"Reporte.pdf"));
        // PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("HelloWorld.pdf"));
-        PdfWriter writer = PdfWriter.getInstance(document, file);        document.open();
+        PdfWriter writer = PdfWriter.getInstance(document, file);     
+        document.open();
         InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
         XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
       
       
     
-        Image image1 = Image.getInstance(System.getProperty("user.dir")+"/temporal/grafica.png");
+        Image image1 = Image.getInstance(path+"grafica.png");
         //Scale to new height and new width of image
         image1.scaleAbsolute(500, 300);
         //Add to document
@@ -184,9 +185,9 @@ public class pdfTest
             String[] listaArticulos = metodosRemotos.leerArticulos().split("\\r?\\n");
             for(String articulo : listaArticulos){
                 articulo = articulo.replace('|',' '); 
-                System.err.println("articulo :"+articulo); 
+                //System.err.println("articulo :"+articulo); 
                 String info = metodosRemotos.leerInfoArticulo(articulo);
-                System.err.println("info :"+info); 
+                //System.err.println("info :"+info); 
                 String[] tokens = info.split("\\|"); 
                 sb.append("<tr>");
                 sb.append("<td>"+tokens[1]+"</td><td>"+tokens[2]+"</td><td>"+tokens[3] +"</td>\n"); 
@@ -220,7 +221,7 @@ public class pdfTest
             sb.append("<h2>Imagen de gráficas</h2>");
             sb.append("<img src =\"/temporal/grafica.png \" />"); 
             sb.append("</body> </html>\n"); 
-            System.err.println(""+sb.toString());
+            //System.err.println(""+sb.toString());
         
             OutputStream file = new FileOutputStream(new File("./temporal/Reporte.pdf"));
        // PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("HelloWorld.pdf"));

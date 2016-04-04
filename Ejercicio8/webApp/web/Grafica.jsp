@@ -64,6 +64,15 @@
              Correo: <input type ="text" name="correoUsuario" value="<% out.print(session.getAttribute("correoUsuario"));   %> ">
              <input type="submit" name="btnEnviarGrafica" value="Enviar a mi correo"/>
         </form>
+         <hr>
+        <h2>Generar reporte y enviar al correo</h2>
+        <p>Confirme su dirección de correo electrónico<br>
+        Si lo desea puede cambiar la dirección de correo electrónico.
+        </p>
+         <form action="Controlador" method="POST">
+             Correo: <input type ="text" name="correoUsuario" value="<% out.print(session.getAttribute("correoUsuario"));   %> ">
+             <input type="submit" name="btnEnviarReporte" value="Enviar a mi correo"/>
+        </form>
              
     </body>
 </html>

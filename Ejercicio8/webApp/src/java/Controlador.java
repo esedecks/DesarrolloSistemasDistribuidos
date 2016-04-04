@@ -102,6 +102,8 @@ public class Controlador extends HttpServlet {
             }else if(request.getParameter("btnEnviarGrafica")!=null){
                 System.err.println("Entra aquí");
                 atenderEnviarCorreo();
+            }else if(request.getParameter("btnEnviarReporte")!= null){
+                atenderEnviarReporte(); 
             }
             else{
                 
@@ -110,6 +112,7 @@ public class Controlador extends HttpServlet {
             ex.printStackTrace();
         }
     }
+    
     private void atenderEnviarCorreo() throws IOException{
         String correo = request.getParameter("correoUsuario");
         correo = correo.trim(); 
@@ -125,6 +128,46 @@ public class Controlador extends HttpServlet {
         boolean res = MotorDeEmails.enviarEmailconArchivo("Gráfica "+fecha,mensaje, path+imagen);
         if(res){
             tituloError ="Se envió la gráfica"; 
+            sesion.setAttribute("tituloError", tituloError);
+            mensajeError="Se envió la gráfica al correo "+correo; 
+            sesion.setAttribute("mensajeError", mensajeError);
+            response.sendRedirect("error.jsp");
+           
+        }else{
+            tituloError ="No se pudo enviar la gráfica"; 
+            sesion.setAttribute("tituloError", tituloError);
+            mensajeError="No se pudo enviar la gráfica al correo "+correo; 
+            sesion.setAttribute("mensajeError", mensajeError);
+            response.sendRedirect("error.jsp");
+        }
+
+        
+    }
+    private void atenderEnviarReporte() throws IOException{
+        String correo = request.getParameter("correoUsuario");
+        correo = correo.trim(); 
+        System.err.println("El correo es: "+correo);
+        MotorDeEmails.prepararMotor();
+        java.sql.Date fecha = new java.sql.Date(new Date().getTime()); 
+        String mensaje = "Solicitó la el reporte generado a la fecha presente.\n Muchas gracias por utilizar nuestro servicio"+
+                                "Att: Ariel Adauta García Presidente de la Empresa de articulos :)"; 
+        
+        MotorDeEmails.setTo(correo);
+        String path = getServletContext().getRealPath("/"); 
+        boolean res = pdfTest.generarPDFReporte(metodosRemotos,path); 
+        
+        res = MotorDeEmails.enviarEmailconArchivo("Reporte "+fecha,mensaje, path+"Reporte.pdf");
+        if(res == false){
+            tituloError ="Falló enviar reporte al correo"; 
+            sesion.setAttribute("tituloError", tituloError);
+            mensajeError="No se pudo generar el reporte intente más tarde "; 
+            sesion.setAttribute("mensajeError", mensajeError);
+            response.sendRedirect("error.jsp");
+            return ; 
+        }
+         
+         if(res){
+            tituloError ="Se envió el reporte"; 
             sesion.setAttribute("tituloError", tituloError);
             mensajeError="Se envió la gráfica al correo "+correo; 
             sesion.setAttribute("mensajeError", mensajeError);

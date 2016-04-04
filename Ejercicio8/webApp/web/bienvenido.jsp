@@ -24,10 +24,16 @@
             por favor de click <a href="EntradaSalidaArticulos.jsp">Entrada o salida de Articulos </a>
             
         </p> 
-        <h2 >Ver gráfica de movimientos</h2>
+        <h2 >Ver gráfica de movimientos, generar reporte y enviar al correo</h2>
         <p> Si desea ver la gráfica de movimientos,
             por favor de click <a href="Grafica.jsp">Gráfica de movimientos de entrada y salida de Articulos </a>
             
         </p>  
+        <img src="articulos.png" 
+             width="500" 
+             height="300"
+             align ="center"
+             
+             />
     </body>
 </html>

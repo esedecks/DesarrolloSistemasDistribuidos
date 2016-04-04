@@ -31,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
     String imagenGrafica = "grafica.png"; 
     Thread reloj ; 
     Date f ;
+    String directorioReporte = "./temporal/Reporte.pdf"; 
     public MainFrame(String usuario, MetodosRemotos metodosRemotos) {
         initComponents();
         this.metodosRemotos = metodosRemotos; 
@@ -63,6 +64,7 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         jButton1 = new javax.swing.JButton();
         lblFecha = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -78,6 +80,11 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         lblBienvenido.setText("Bienvenido");
 
         jButton1.setText("Generar reporte y envir al correo ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lblFecha.setText("Hoy es: ");
 
@@ -87,6 +94,8 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clienteescritorio/articulos.png"))); // NOI18N
 
         jMenu1.setText("Archivo");
 
@@ -141,15 +150,19 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblFecha)
                             .addComponent(lblBienvenido))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(178, 178, 178)
+                .addComponent(jLabel1)
+                .addContainerGap(183, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +171,9 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
                 .addComponent(lblBienvenido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFecha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -240,6 +255,34 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MotorDeEmails.prepararMotor();
+        java.sql.Date fecha = new java.sql.Date(new Date().getTime()); 
+        String mensaje = "Solicitó el reporte. Muchas gracias por utilizar nuestro servicio\n"+
+                                "Att: Ariel Adauta García Presidente de la Empresa de articulos :)"; 
+        
+        String nuevoCorreo = JOptionPane.showInputDialog(rootPane,"Está apunto de enviarse el correo a :"+correoUsuario+"\nSi desea enviarlo a otro correo escriba en la caja de texto, si no, presione aceptar.");
+        if(!nuevoCorreo.equals("")){
+            MotorDeEmails.setTo(nuevoCorreo);
+        }
+        else {
+            MotorDeEmails.setTo(correoUsuario);
+            nuevoCorreo = correoUsuario; 
+
+        }
+        boolean res = pdf.pdfTest.generarPDFReporte(metodosRemotos); 
+        if(res == false){
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al generar el PDF ");
+            return ; 
+        }
+        res = MotorDeEmails.enviarEmailconArchivo("Gráfica "+fecha,mensaje,directorioReporte );
+        if(res){
+            JOptionPane.showMessageDialog(rootPane, "Se envio correctamente al correo "+nuevoCorreo);
+        }else
+           JOptionPane.showMessageDialog(rootPane, "No se pudo enviar la gráfica al correo "+correoUsuario);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public MetodosRemotos getMetodosRemotos() {
         return metodosRemotos;
     }
@@ -286,6 +329,7 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
