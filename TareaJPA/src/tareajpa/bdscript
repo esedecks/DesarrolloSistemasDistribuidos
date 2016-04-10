@@ -1,0 +1,9 @@
+create database TareaJPA; 
+use TareaJPA; 
+create table categoria (
+    idCategoria int not null auto_increment, 
+    nombre varchar(30) null,
+    descripcion varchar(30) null,
+    primary key (idCategoria)
+); 
+
