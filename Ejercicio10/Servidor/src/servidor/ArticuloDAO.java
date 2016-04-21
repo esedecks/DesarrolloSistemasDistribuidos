@@ -1,28 +1,22 @@
-package DAOs;
+package servidor;
 
 
+import interfazrmi.Articulo;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Transaction;
-import org.hibernate.mapping.Array;
-import pojos.Articulo;
 import util.HibernateUtil;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
  * @author esedecks
  */
 public class ArticuloDAO {
-    public void create(Articulo ar){
+    
+    public boolean create(Articulo ar){
         Transaction tr = null; 
         try{
             org.hibernate.Session s = HibernateUtil.getSessionFactory().getCurrentSession(); 
@@ -31,31 +25,35 @@ public class ArticuloDAO {
             s.save(ar); 
             tr.commit();
             System.err.println("Se guardó el articulo correctamente ") ; 
-
+            
         }catch(HibernateException he){
             if(tr!=null && tr.isActive())tr.rollback();
             System.err.println("Sucedió un error") ; 
             he.printStackTrace();
+            return false; 
         }
-        
+        return true; 
     }
     
-    public void update(Articulo ar){
+    public boolean update(Articulo ar){
         Transaction tr = null; 
         try{
             org.hibernate.Session s = HibernateUtil.getSessionFactory().getCurrentSession(); 
             tr = s.getTransaction(); 
             tr.begin();
-            s.update(ar);
+            s.merge(ar);
             tr.commit();
             System.err.println("Se actualizó el articulo correctamente ") ; 
         }catch(HibernateException he){
             if(tr!=null && tr.isActive())tr.rollback();
             System.err.println("Sucedió un error") ; 
             he.printStackTrace();
+            return false; 
+            
         }
+        return true; 
     }
-    public void delete(Articulo ar){
+    public boolean delete(Articulo ar){
         Transaction tr = null; 
         try{
             org.hibernate.Session s = HibernateUtil.getSessionFactory().getCurrentSession(); 
@@ -68,7 +66,9 @@ public class ArticuloDAO {
             if(tr!=null && tr.isActive())tr.rollback();
             System.err.println("Sucedió un error") ; 
             he.printStackTrace();
+            return false; 
         }
+        return true; 
     }
     
     public Articulo  readOne(Articulo a){
@@ -79,13 +79,13 @@ public class ArticuloDAO {
             org.hibernate.Session s = HibernateUtil.getSessionFactory().getCurrentSession(); 
             tr = s.getTransaction(); 
             tr.begin();
-            artiTemp = (Articulo)s.get(artiTemp.getClass(), artiTemp.getIdArticulo()); 
+            artiTemp = (Articulo)s.get(a.getClass(), a.getIdArticulo()); 
             tr.commit();
-            System.err.println("Se borró el articulo correctamente ") ; 
         }catch(HibernateException he){
             if(tr!=null && tr.isActive())tr.rollback();
             System.err.println("Sucedió un error") ; 
             he.printStackTrace();
+            return null; 
         }
         return artiTemp; 
     }
@@ -98,10 +98,9 @@ public class ArticuloDAO {
             tr = s.getTransaction(); 
             tr.begin();
             lista = new ArrayList(); 
-            Query q = s.createQuery("from articulo"); 
+            Query q = s.createQuery("from Articulo"); 
             lista = q.list(); 
             tr.commit();
-            System.err.println("Se borró el articulo correctamente ") ; 
         }catch(HibernateException he){
             if(tr!=null && tr.isActive())tr.rollback();
             System.err.println("Sucedió un error") ; 

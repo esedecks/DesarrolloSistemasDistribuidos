@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pojos;
+package interfazrmi;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -53,6 +53,12 @@ public class Articulo implements Serializable {
 
     public void setExistencias(int existencias) {
         this.existencias = existencias;
+    }
+    public String toString(){
+        return "idArticulo "+idArticulo 
+              +"\ndescipcion "+  descripcion
+              +"\nprecio "+ precio 
+              +"\nexistencias"+ existencias + "\n"; 
     }
     
 }
