@@ -10,6 +10,7 @@ import DAOs.MovArticuloDAO;
 import DAOs.UsuarioDAO;
 import interfazrmi.Articulo;
 import interfazrmi.MetodosRemotos;
+import interfazrmi.MovArticulo;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -42,15 +43,7 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
             System.err.println("regreso null autenticar usuario");
             return false; 
         }
-        /*conexionBD = new SQLConexion(); 
-        String consulta = "select idUsuario from usuario where usuario = '"+usuario+"' and password ='"+password+"'"; 
-        conexionBD.setConsulta(consulta);
-        conexionBD.ejecutarSQL();
-        String resultado = conexionBD.getResultado(); 
-        //System.err.println("El resultado de la consulta es: "+resultado); 
-        if(resultado.equals("noDatos"))return false; 
-        else return true; */
-
+    
     }
 
     @Override
@@ -77,15 +70,7 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
 
     @Override
     public boolean eliminarArticulo(String nombre) throws RemoteException {
-        /**conexionBD = new SQLConexion();
-        String consulta = "delete from articulo\n" +
-                           "where descripcion = '"+nombre+"'"; 
-        conexionBD.setConsulta(consulta);
-        conexionBD.ejecutarSQL();
-        String resultado = conexionBD.getResultado(); 
-        if(resultado.equals("0"))return false; 
-        else return true; 
-        * */
+
          System.err.println("Entra en elimianr articulo");
         artDAO = new ArticuloDAO(); 
         Articulo articulo = new Articulo(); 
@@ -107,17 +92,7 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
 
     @Override
     public boolean actualizarArticulo(String descripcion, String existencias, String precio, String nombreAnterior) throws RemoteException {
-        /*String consulta = "update articulo "
-                        + "set descripcion ='"+descripcion+"', precio='"+precio+"', existencias = '"+existencias+"'"
-                        +" where descripcion = '"+nombreAnterior+"'";
-        System.err.println("La consulta queda como "+consulta); 
-        conexionBD = new SQLConexion();
-    
-        conexionBD.setConsulta(consulta);
-        conexionBD.ejecutarSQL();
-        String resultado = conexionBD.getResultado(); 
-        if(resultado.equals("0"))return false; 
-        else return true; */
+
          System.err.println("Entra en actualizar articulo");
         artDAO = new ArticuloDAO(); 
         Articulo articulo = new Articulo(); 
@@ -130,31 +105,31 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
 
     @Override
     public boolean realizarMovimiento(String nombreArticulo, String tipoMovimiento, String cantidad) throws RemoteException {
-        //hacer la inserción en la tabla movArticulo, tener en cuenta que afecta 
-        //la tabla articulo
-        java.util.Date myDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-        String consulta = "insert into movArticulo values"
-                        + "(null,'"+sqlDate+"','"+tipoMovimiento+"','"+cantidad+"',(select idArticulo from articulo where descripcion='"+nombreArticulo+"'))";
-        System.err.println("La consulta queda como "+consulta); 
-        
+  
         conexionBD = new SQLConexion();
+        String consulta = "select idArticulo from articulo where descripcion='"+nombreArticulo+"'"; 
         conexionBD.setConsulta(consulta);
         conexionBD.ejecutarSQL();
         String resultado = conexionBD.getResultado(); 
-        if(resultado.equals("0"))return false;
-        //hasta aquí se hace la inserción de movimiento falta la inserción de para modificar los articulo
+        resultado = resultado.replace('|', '\0').trim().replace('\"', '\0');
+        System.err.println("el id es : "+resultado); 
+        mvArtDAO = new MovArticuloDAO(); 
+        MovArticulo mvArticulo = new MovArticulo(); 
+        mvArticulo.setFechaMovimiento( new java.util.Date());
+        mvArticulo.setCantidad(Integer.parseInt(cantidad));
+        mvArticulo.setTipo(tipoMovimiento);
+        //necesito obtener el id del articulo 
+        mvArticulo.setIdArticulo(Integer.parseInt(resultado));
+        mvArtDAO.create(mvArticulo); 
+        
+        
         consulta = "update articulo\n" +
                     "set existencias = existencias"+ (tipoMovimiento.contains("entrada")?" + ": " - ")+ cantidad+
                     " where descripcion = '"+nombreArticulo+"'"; 
-        System.err.println("La consulta de actiañiozaciaon como "+consulta); 
-      
-        conexionBD = new SQLConexion();
+         
         conexionBD.setConsulta(consulta);
         conexionBD.ejecutarSQL();
-        resultado = conexionBD.getResultado(); 
-        if(resultado.equals("0"))return false;
-        else return true; 
+        return true; 
     }
 
     @Override
@@ -175,17 +150,6 @@ public class Metodos extends UnicastRemoteObject  implements MetodosRemotos {
 
     @Override
     public String getCorreoUsuario(String usuario) throws RemoteException {
-        
-        /*
-        conexionBD = new SQLConexion();
-        String consulta = "select correo\n" +
-                          " from usuario where usuario ='"+usuario+"'"; 
-        conexionBD.setConsulta(consulta);
-        conexionBD.ejecutarSQL();
-        String resultado = conexionBD.getResultado(); 
-        System.err.println("El resultado es: "+resultado ); 
-        
-                */
         String resultado = ""; 
         usDAO = new UsuarioDAO(); 
         System.err.println("Seejecuta get correo usuario");

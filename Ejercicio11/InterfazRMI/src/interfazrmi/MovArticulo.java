@@ -6,7 +6,7 @@
 package interfazrmi;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class MovArticulo implements Serializable {
     @Id
     private int idMovimiento; 
-    private java.sql.Date fechaMovimiento; 
+    private java.util.Date fechaMovimiento; 
     private String tipo; 
     private int cantidad; 
     private int idArticulo; 
